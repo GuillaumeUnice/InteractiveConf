@@ -1,12 +1,5 @@
 # Ecran de conference interactif V1
 
-### Membres
-
-* Guillaume Borg
-* Max Destors
-* Bezeid Moulaye-ely
-* Romain Palmero
-
 ## Features
 
 ### Chairman / Assistant
