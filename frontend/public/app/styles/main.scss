@@ -1,0 +1,50 @@
+@charset "UTF-8";
+@import "form-senq-question";
+@import "list-questions";
+@import "header-info";
+
+$icon-font-path: "../../bower_components/bootstrap-sass-official/assets/fonts/bootstrap/";
+// bower:scss
+@import "bootstrap-sass-official/assets/stylesheets/_bootstrap.scss";
+// endbower
+
+/* if lte IE 8 */
+.browsehappy {
+  margin: 0.2em 0;
+  background: #ccc;
+  color: #000;
+  padding: 0.2em 0;
+}
+
+body {
+  /*padding-top:60px;*/
+  background: url("/images/bg.png") repeat;
+}
+
+.navbar {
+  background-color: #2c3032;
+}
+
+
+/* Responsive: Portrait tablets and up */
+@media screen and (min-width: 768px) {
+  .container {
+    max-width: 730px;
+  }
+
+  /*PERSO */
+  .btn-icon {
+    font-size: 30px;
+  }
+  .btn-icon:hover {
+    text-decoration: none;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .btn-icon {
+    font-size: 30px;
+  }
+}
+
+

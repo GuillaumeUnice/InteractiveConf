@@ -1,0 +1,80 @@
+<div class="container-fluid height100">
+    <div class="row top-panel">
+        <div class="col-xs-12 height100">
+            <div class="row height100">
+                <div class="div-to-align-middle height100"></div>
+                <div class="v-align-middle">
+                    <span class="note-title">Note de l'assistant :</span>
+                    <span class="note-text">{{ note }}</span>
+                </div>
+                <div class="pull-right height100">
+                    <div class="div-to-align-middle height100"></div>
+                    <span class="timer-text v-align-middle"><timer interval="1000" max-time-unit="'minute'">{{mminutes}}:{{sseconds}}</timer></span>
+                    <div class="blank-timer v-align-middle">
+                        <i class="fa fa-play fa-3x" ng-click="startTimer()" ng-if="!timerRunning"><!-- play --></i>
+                        <i class="fa fa-pause fa-3x" ng-click="stopTimer()" ng-if="timerRunning"><!-- pause --></i>
+                    </div>
+                    <div class="blank-timer v-align-middle">
+                        <i class="fa fa-repeat fa-3x fa-flip-horizontal" ng-click="resetTimer()"><!-- reset --></i>
+                    </div>
+                </div>
+            </div>
+            <!-- <div class="row">
+                <div class="col-xs-10">
+                </div>
+                <div class="col-xs-2 text-center">
+                </div>
+            </div> -->
+        </div>
+    </div>
+    <div class="row mid-panel">
+        <div class="col-xs-12 height100" ng-if="question.isDisplayed">
+            <div class="row">
+                <div class="col-xs-12">
+                    <span class="question-title">Question : {{ question.name }} {{ question.slide }}</span>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-10">
+                    <span class="question-text">{{ question.content }}</span>
+                </div>
+                <div class="col-xs-2 btns-question height100 text-center">
+                    <div class="row">
+                        <div class="col-xs-12 height100">
+                            <i class="fa fa-paper-plane fa-4x" ng-click="sendQuestionToScreen()"></i>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-12 height100">
+                            <i class="fa fa-times fa-4x" ng-click="sendQuestionToAssistant()"></i>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <uib-progressbar ng-if="progressBarDisplay" class="questionNaveBar" animate="false" max="progressBarMax" value="progressBarVal"></uib-progressbar>
+        </div>
+        <div class="col-xs-12 height100" ng-if="!question.isDisplayed">
+            <div class="row height100">
+                <div class="col-xs-12 height100">
+                    <div class="div-to-align-middle height100"></div>
+                    <div class="no-question">Pas de question pour le moment</div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row bot-panel">
+        <div class="col-xs-12">
+            <div class="row">
+                <div class="col-xs-12">
+                    Sondage :
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-12">
+                    ici les sondages
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,35 @@
+<div ng-controller="MainCtrl" ng-cloak>
+<!-- 	<div class="button-mock">
+		<button type="button" class="btn btn-default" ng-click="focustweet('mock')">focus tweet</button><br />
+ 		user:<input type="text" class="form-control" ng-model="mockQuestion.name">
+		question:<input type="text" class="form-control" ng-model="mockQuestion.content">
+		<button type="button" class="btn btn-default" ng-click="newquestion(mockQuestion.id,mockQuestion.name,mockQuestion.content);mockQuestion.id=mockQuestion.id+1;">new question</button><br />
+		<button type="button" class="btn btn-default" ng-click="hidequestion()">hide question</button>
+	</div>
+ -->	<!--h2 class="">Events</h2>
+	<br/-->
+	<div class="events">
+		<div class="row event" ng-repeat="event in events | orderBy:'-receivedAt'" ng-class="{tweet: event.isTweet, focustweet: event.isFocused}">
+			<div class="col-xs-12">
+				<div class="row event-content">
+					<div class="col-xs-1 profile-pic"><img src="{{ event.user.profile_image_url }}" alt="{{ event.user.name }}"></div>
+					<div class="col-xs-11">
+						<div><strong>{{ event.user.name }}</strong></div>
+						<div>{{ event.text }}</div>
+					</div>
+				</div>
+				<!-- For pictures in tweets
+				<div class="row event-media">
+					<div class="col-xs-1"></div>
+					<div class="col-xs-10"><img src="{ event.extended_entities.media[0].media_url }}" alt=""></div>
+				</div> -->
+			</div>
+		</div>
+	</div>
+	<div class="question-block" ng-if="question.isDisplayed">
+		<div class="question-header"><strong>{{ question.name }}</strong> {{ question.num_slide }}</div>
+		<div class="question-content">{{ question.content }}</div>
+	</div>
+</div>
+
+

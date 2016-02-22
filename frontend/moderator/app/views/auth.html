@@ -1,0 +1,65 @@
+
+<!--
+<div class="modal" ng-class="{'show': !logged, hide: logged }" data-keyboard="false" data-backdrop="static" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h3 class="modal-title" id="myModalLabel">Login :</h3>
+          </div>
+          <div class="modal-body">
+            <div class="container">
+              <div class="row">
+                <div class="col-md-6 col-md-offset-1">
+                  <form ng-submit="login(formLogin);" name="formLogin" novalidate>
+                    <label for="loginPseudo" >
+                      Pseudo
+                    </label>
+                    <br>
+                    <input type="text" id="loginPseudo" name="pseudo" ng-model="login.pseudo" required />
+                    <br>
+                    <label for="loginPassword" >
+                      Mot de passe  
+                    </label>
+                    <br>
+                    <input type="password" id="loginPassword" name="password" ng-model="login.password" required />
+                    
+                    <br>
+                    <button class="button" ng-click="checkLogin()" >
+                      <span class="glyphicon  button-icon" ></span>Login
+                    </button>
+                  </form>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="modal-footer">
+          </div>
+        </div>
+      </div>
+    </div>
+
+    -->
+
+   <!-- Bootstrap 3 css -->
+    <link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Angular.js -->
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.0.8/angular.min.js"></script>
+    <!-- Angular-xeditable -->
+    <link href="angular-xeditable/css/xeditable.css" rel="stylesheet">
+    <script src="angular-xeditable/js/xeditable.js"></script>
+
+
+    <div ng-controller="MainCtrl">
+  <div>Email: <a href="" editable-email="user.email">{{ user.email || 'empty' }}</a></div>
+  <div>Tel: <a href="#" editable-tel="user.tel" e-pattern="\d{3}\-\d{2}\-\d{2}" e-title="xxx-xx-xx">{{ user.tel || 'empty' }}</a></div>
+  <div>Number: <a href="#" editable-number="user.number" e-min="18">{{ user.number || 'empty' }}</a></div>  
+  <div>Range: <a href="#" editable-range="user.range" e-step="5">{{ user.range || 'empty' }}</a></div>  
+  <div>Url: <a href="#" editable-url="user.url">{{ user.url || 'empty' }}</a></div>  
+  <div>Search: <a href="#" editable-search="user.search">{{ user.search || 'empty' }}</a></div>  
+  <div>Color: <a href="#" editable-color="user.color">{{ user.color || 'empty' }}</a></div>  
+  <div>Date: <a href="#" editable-date="user.date">{{ user.date || 'empty' }}</a></div>  
+  <div>Time: <a href="#" editable-time="user.time">{{ user.time || 'empty' }}</a></div>  
+  <div>Datetime: <a href="#" editable-datetime="user.datetime">{{ user.datetime || 'empty' }}</a></div>  
+  <div>Month: <a href="#" editable-month="user.month">{{ user.month || 'empty' }}</a></div>  
+  <div>Week: <a href="#" editable-week="user.week">{{ user.week || 'empty' }}</a></div>  
+</div>

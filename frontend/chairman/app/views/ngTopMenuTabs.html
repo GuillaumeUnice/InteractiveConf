@@ -1,0 +1,18 @@
+<div>
+    <div class="cbp-spmenu-top" ng-class="{'cbp-spmenu-open' : display}" id="top_menu" >
+        <div id="showTopContainer" class="col-md-offset-4" >
+            <div ng-transclude></div>
+            <button class="button button-alert" ng-click="display = false">
+                <span class="glyphicon glyphicon-remove button-icon"></span>Close
+            </button>
+        </div>
+
+    </div>
+
+    <div ng-repeat="tab in tabs" >
+        <div class="col-sm-4 col-md-5 col-lg-5 tab" ng-click="select(tab)">
+        	{{tab.title}}
+        </div>
+    </div>
+
+</div>

@@ -1,0 +1,67 @@
+<!--TODO afficher uniquement les questions de l'utilisateurs + celle qui ont été validée (checker status code) -->
+<!--TODO creer des filtres (par upvote / par question répondues)
+
+
+<!--LES QUESTIONS REPONSES-->
+<div class="allQuestionsWrapper">
+
+  <!-- ng-repeat -->
+  <div ng-repeat="qr in qrArray | orderBy:sortType:sortReverse | filter:searchByContent">
+
+    <!-- questionWrapper -->
+    <div class="questionWrapper col-xs-12" ng-class="{answered: qr.response.content != null}">
+
+      <p class="question-info">
+        <strong>{{usersList[qr.question.public_id - 1].prenom}} {{usersList[qr.question.public_id - 1].nom}}</strong>
+        <span class="pull-right">
+          <i style="color:#888" class="fa fa-clock-o"></i>
+          <span class="pull-right question_hour" am-time-ago="qr.question.created_at | amFromUnix"></span>
+        </span>
+      </p>
+      <p class="question-content">{{qr.question.content}}</p>
+
+      <hr style="padding-top:10px;margin:0;">
+
+      <!-- les actions -->
+      <div class="btnActions">
+        <div class="col-xs-4 text-left">
+
+          <!-- gestion affiche si ya une reponse btn-up btn-down -->
+          <div ng-hide="qr.response.content == null">
+            <button class="btn btn-default" title="Show the answer" ng-class="{'btn-fold': qr.response.content != null}" ng-click="show = !show">
+              <div ng-if="qr.response.content != null && show == false"><i class="fa fa-arrow-down"></i></div>
+              <div ng-if="show == true && qr.response.content != null"><i class="fa fa-arrow-up"></i></div>
+            </button>
+          </div>
+
+          <!-- gestion affichage si pas de reponse -->
+          <div ng-if="qr.response.content == null">
+            <button class="btn btn-default" title="No answer for now" disabled>
+              <div ng-if="qr.response.content == null"><i class="fa fa-circle-thin"></i></div>
+            </button>
+          </div>
+
+        </div>
+        <div class="col-xs-4 text-center nbSlide">
+          <i class="fa fa-file-text-o" title="slide"></i> {{qr.question.num_slide}}
+        </div>
+        <div class="col-xs-4 text-right">
+          <button class="btn btn-default" ng-class="{'btn-upvote': qr.question.up_vote > 0}"
+                  ng-click="qr.question.up_vote = qr.question.up_vote + 1 ; updateVote(qr.question)">
+            <i class="fa fa-star"></i>
+            {{qr.question.up_vote}}
+          </button>
+        </div>
+      </div>
+
+      <!-- la reponse -->
+      <div ng-show="show" class="questionAnswer text-left animate-show">
+        {{qr.response.content}}
+      </div>
+
+    </div>
+  </div>
+</div>
+
+
+<div style="margin-bottom:50px;">&nbsp;</div>

@@ -1,0 +1,53 @@
+<article class="question" ng-class="{'question-selected' : !displaySelectedQuestion}">
+    <div class="question-header">
+      Question {{ question.id }} - Ecrit <span am-time-ago="question.created_at | amFromUnix"></span>
+      <span ng-if="question.public_id">
+        par {{ question.public_id }}   
+      </span>
+    </div>
+    <div class="question-content"> {{ question.content }}</div>
+    <div>
+    	<span><i class="glyphicon glyphicon-tag"></i>
+            <span ng-if="question.num_slide">
+                Slide #{{ question.num_slide }}
+            </span>
+            <span ng-if="!question.num_slide">
+                Aucun slide associé
+            </span>
+        </span>
+    	<span class="badge question-badge">{{ question.up_vote }}</span>
+        <br>
+        <div class="btn-group pull-right">
+            <i ng-show="maskQuestionToChairmanExist" ng-click="maskQuestionToChairman()" class="glyphicon glyphicon-trash pull-right question-icon gi-1-8"></i>
+            <i ng-if="mergeQuestionToChairmanExist" ng-click="mergeQuestionToChairman()" class="glyphicon glyphicon-filter pull-right question-icon gi-1-8"></i>
+            <i ng-if="sendQuestionToSpeakerExist" ng-click="sendQuestionToSpeaker(question)" class="glyphicon glyphicon-send pull-right question-icon gi-1-8"></i>
+            <i ng-if="answerQuestionToPublicExist && !displayQuestionForm" ng-click="ChangeDisplayQuestionForm()" class="glyphicon glyphicon-pencil pull-right question-icon gi-1-8"></i>
+            <i ng-if="chooseAsMainMergeQuestionExist" ng-click="chooseAsMainMergeQuestion(); ChangeDisplaySelectedQuestion();" class="glyphicon glyphicon glyphicon glyphicon-pushpin pull-right question-icon gi-1-8"></i>
+            <i ng-if="addToMergeQuestionExist && displaySelectedQuestion" ng-click="addToMergeQuestion(); ChangeDisplaySelectedQuestion();" class="glyphicon glyphicon glyphicon-ok pull-right question-icon gi-1-8"></i>
+            <i ng-if="removeToMergeQuestionExist && !displaySelectedQuestion" ng-click="removeToMergeQuestion(); ChangeDisplaySelectedQuestion();" class="glyphicon glyphicon glyphicon-remove pull-right question-icon gi-1-8"></i>
+        </div>
+    </div>
+    <div class="question-sub-content" ng-class="{'question-sub-content-hide' : !displayQuestionForm}">
+        <form ng-submit="sendAnswerQuestionToPublic(answerToQuestion)" name="formAnswerQuestion" novalidate>
+            <div class="">
+                <label for="answerContent" >
+                  Answer
+                </label>
+                <br>
+                <textarea id="answerContent" placeholder="Tapez ici!!!" ng-model="answerToQuestion" required name="content"></textarea>
+                <p ng-show="formAnswerQuestion.answerToQuestion.$error.required" class="red">
+                  <span class="glyphicon glyphicon-exclamation-sign"></span> An answer is required!!!
+                </p>
+            </div>
+            <div class="">
+                <button class="button" ng-disabled="formAnswerQuestion.$invalid">
+                  <span class="glyphicon glyphicon-send button-icon"></span>Send
+                </button>
+                <button type="button" class="button button-alert" ng-click="ChangeDisplayQuestionForm()">
+                      <span class="glyphicon glyphicon-remove button-icon"></span>Close
+                </button>
+          </div>
+        </form>
+    </div>
+</article>
+

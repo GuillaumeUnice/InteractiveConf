@@ -1,0 +1,123 @@
+#!/usr/bin/env node
+
+/**
+ * Module dependencies.
+ */
+
+var app = require('../app');
+var debug = require('debug')('backend:server');
+var http = require('http');
+var socket = require('../our_modules/socket');
+var constants = require('../our_modules/constants');
+
+/**
+ * Get port from environment and store in Express.
+ */
+
+var port = normalizePort(process.env.PORT || '3010');
+app.set('port', port);
+
+/**
+ * Create HTTP server.
+ */
+
+var server = http.createServer(app);
+mySocket = new socket.Socket(server); // faire un singleton dans une route non ?
+
+// open namespaces
+// mySocket.addNamespace(''); // par default
+mySocket.addNamespace(constants.MODERATOR_NAMESPACE);
+mySocket.addNamespace(constants.PUBLIC_NAMESPACE);
+mySocket.addNamespace(constants.SPEAKER_NAMESPACE);
+mySocket.addNamespace(constants.CHAIRMAN_NAMESPACE);
+mySocket.addNamespace(constants.SCREEN_NAMESPACE);
+
+// TODO : DELETE
+/*var questionTest =   {'id' :  1, 'name' : 'Jhon Doe', 'status_code' : 5, 'up' : 1, 'slide_start' : null, 'slide_stop' : null, 'content' : 'La faille Hearthbleed entre t\'elle dans cette catégorie de faille?', 'created_at' : '1449409522'};
+    
+setInterval(function() {
+    questionTest.id++;
+    questionTest.up = Math.floor(Math.random() * 50) + 1;
+    questionTest.created_at = Date.now(); 
+    var status_code = Math.floor(Math.random() * 6) + 1;
+    if(status_code == 1) {
+      questionTest.status_code = 25;
+    } else {
+      questionTest.status_code = 5;
+    }
+    questionTest.up_vote = 25;
+    console.log('send' + questionTest);
+    
+    mySocket.sendByNamespace(constants.CHAIRMAN_NAMESPACE, 'question', questionTest); 
+}, 8000);*/
+
+
+
+
+/**
+ * Listen on provided port, on all network interfaces.
+ */
+
+server.listen(port);
+server.on('error', onError);
+server.on('listening', onListening);
+
+/**
+ * Normalize a port into a number, string, or false.
+ */
+
+function normalizePort(val) {
+  var port = parseInt(val, 10);
+
+  if (isNaN(port)) {
+    // named pipe
+    return val;
+  }
+
+  if (port >= 0) {
+    // port number
+    return port;
+  }
+
+  return false;
+}
+
+/**
+ * Event listener for HTTP server "error" event.
+ */
+
+function onError(error) {
+  if (error.syscall !== 'listen') {
+    throw error;
+  }
+
+  var bind = typeof port === 'string'
+    ? 'Pipe ' + port
+    : 'Port ' + port;
+
+  // handle specific listen errors with friendly messages
+  switch (error.code) {
+    case 'EACCES':
+      console.error(bind + ' requires elevated privileges');
+      process.exit(1);
+      break;
+    case 'EADDRINUSE':
+      console.error(bind + ' is already in use');
+      process.exit(1);
+      break;
+    default:
+      throw error;
+  }
+}
+
+/**
+ * Event listener for HTTP server "listening" event.
+ */
+
+function onListening() {
+  var addr = server.address();
+  var bind = typeof addr === 'string'
+    ? 'pipe ' + addr
+    : 'port ' + addr.port;
+  debug('Listening on ' + bind);
+}

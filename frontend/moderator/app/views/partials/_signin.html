@@ -1,0 +1,40 @@
+<div class="modal" ng-class="{'show': !logged, hide: logged }" data-keyboard="false" data-backdrop="static"    role="dialog" >
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3 class="modal-title" id="myModalLabel">Signin :</h3>
+      </div>
+      <div class="modal-body">
+        <div class="container">
+          <div class="row">
+            <div class="col-md-6 col-md-offset-1">
+              <form  name="formLogin" novalidate>
+                <label for="loginPseudo" >
+                  Pseudo
+                </label>
+                <br>
+                <input type="text" id="loginPseudo" name="pseudo" ng-model="login.pseudo" required />
+
+                <br>
+                <label for="loginPassword">
+                  Mot de passe
+                </label>
+                <br>
+                <input type="password" id="loginPassword" name="password" ng-model="login.password" required />
+
+                <br>
+                <br>
+                <span class="btn glyphicon glyphicon-send btn-info  btn-lg" ng-click="checkLogin();"></span>Signin
+                <span class="btn glyphicon glyphicon-plus-sign btn-info btn-lg" ng-click="created=false"></span>Signup
+
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+
+      </div>
+    </div>
+  </div>
+</div>

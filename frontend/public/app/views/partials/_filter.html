@@ -1,0 +1,55 @@
+<!--INFORMATION SUR L'ETAT DU TRI-->
+<!--<div class="alert alert-info">-->
+  <!--<p>Sort Type: {{ sortType }}</p>-->
+  <!--<p>Sort Reverse: {{ sortReverse }}</p>-->
+<!--</div>-->
+
+
+<div class="filter row">
+
+  <!--par date-->
+  <div class="col-sm-2" style="padding-right:0;">
+    <a href="/#/" ng-click="sortType = 'question.created_at'; sortReverse = !sortReverse">
+      <button class="btn btn-lg btn-default btn-block" type="button" ng-class='{"active":tog==1}' ng-click='tog=1'>
+        <i class="fa fa-clock-o" title="date"></i> <span style="font-size:12px">By date</span>
+        <span ng-show="sortType == 'question.created_at' && !sortReverse" class="fa fa-caret-up"></span>
+        <span ng-show="sortType == 'question.created_at' && sortReverse" class="fa fa-caret-down"></span>
+      </button>
+    </a>
+  </div>
+
+  <!--par slide-->
+  <div class="col-sm-2" style="padding-right:0;">
+    <a href="/#/" ng-click="sortType = 'question.num_slide'; sortReverse = !sortReverse">
+      <button class="btn btn-lg btn-default btn-block" type="button" ng-class='{"active":tog==3}' ng-click='tog=3'>
+        <i class="fa fa-file-text-o" title="slide"></i> <span style="font-size:12px">By slide</span>
+        <span ng-show="sortType == 'question.num_slide' && !sortReverse" class="fa fa-caret-down"></span>
+        <span ng-show="sortType == 'question.num_slide' && sortReverse" class="fa fa-caret-up"></span>
+      </button>
+    </a>
+  </div>
+
+  <!--par contenu-->
+  <div class="col-sm-2" style="padding-right:0px;">
+    <a href="/#/" ng-click="sortType = 'question.up_vote'; sortReverse = !sortReverse">
+      <button class="btn btn-lg btn-default btn-block" type="button" ng-class='{"active":tog==2}' ng-click='tog=2'>
+        <i class="fa fa-star" title="vote"></i> <span style="font-size:12px">By vote</span>
+        <span ng-show="sortType == 'question.up_vote' && !sortReverse" class="fa fa-caret-down"></span>
+        <span ng-show="sortType == 'question.up_vote' && sortReverse" class="fa fa-caret-up"></span>
+      </button>
+    </a>
+  </div>
+
+  <!--FORMULAIRE POUR TRIER PAR CONTENT-->
+  <form>
+    <div class="form-group col-sm-6">
+      <div class="input-group">
+        <div class="input-group-addon"><i class="fa fa-search"></i></div>
+        <input type="text" class="form-control input-lg" placeholder="Search by content" ng-model="searchByContent">
+      </div>
+    </div>
+  </form>
+
+</div>
+
+

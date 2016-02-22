@@ -1,0 +1,19 @@
+<div ng-repeat="question in questionsFavorites.favorites track by $index">
+  <div class="questionWrapper col-xs-12" ng-class="{answered: questionsList[question.id-1].response !== null}">
+    <strong>{{questionsList[question.id-1].user_name}}</strong> : {{questionsList[question.id-1].content}} <br/>
+    <div class="btnActions">
+      <div class="col-xs-4 text-left"> <!-- ng-if="question.response !== null"-->
+        <input ng-hide="questionsList[question.id-1].response == null" ng-click="show = !show" type="button" style="font-size:20px;" value="▼"/>
+      </div>
+      <div class="col-xs-4 text-center">
+        <div class="nbSlide">Slide n°{{questionsList[question.id-1].slide}}</div>
+      </div>
+      <div class="col-xs-4 text-right">
+        <input type="button" ng-click="questionsList[question.id-1].upvote = questionsList[question.id-1].upvote + 1" style="font-size:20px;" value="👍{{questionsList[question.id-1].upvote}}" />
+      </div>
+    </div>
+    <div ng-show="show" class="questionAnswer text-left animate-show" ng-repeat="response in questionsList[question.id-1].response track by $index">
+      <strong>{{response.answered_by}}</strong> : {{response.content}}
+    </div>
+  </div>
+</div>

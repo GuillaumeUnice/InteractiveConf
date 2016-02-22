@@ -1,0 +1,78 @@
+@import "color.scss";
+
+.question {
+  background: lighten( $color1, 10% );
+  border: 1px solid $color3;
+  width: 100%;
+  height: 100%;
+  left: 0;
+  margin-top : 15px;
+  padding : 10px;
+  padding-bottom: 30px;
+}
+
+.question-container, .question-left-container {
+  /*height: 70vh;*/
+  max-height : 85%;
+  padding-right : 10px;
+  overflow-y:scroll; 
+  position:relative;
+}
+
+.question-left-container .question {
+  cursor:move;
+}
+
+.question-left-container {
+	max-height : 93%;
+}
+
+.question-button {
+  margin-right : 10px;
+  background-color: $color3;
+}
+
+.question-button:hover {
+  color: $color2 !important;
+}
+
+.question-badge {
+  margin : 5px;
+  padding: 6px !important;
+  background-color: $color2 !important;
+}
+
+.question-icon {
+  margin-right : 15px;
+  cursor: pointer;
+}
+
+.question-icon:hover {
+  color: $color3;
+}
+
+
+/* question's form */
+.question textarea {
+  width : 100%;
+}
+
+.question-sub-content-hide {
+  display: none;
+}
+
+.question-sub-content {
+  padding-top : 20px;
+  margin-bottom : 50px;
+}
+
+.question button.button {
+  min-width: 0;
+  margin-right: 20px;
+  /*margin: 0;*/
+}
+
+.question-selected {
+  background-color: lighten($color2, 12%);
+  border-radius : 3px;
+}

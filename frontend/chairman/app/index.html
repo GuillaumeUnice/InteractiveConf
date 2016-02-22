@@ -1,0 +1,181 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Chairman Application Conference Interactive</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width">
+    <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
+    <!-- build:css(.) styles/vendor.css -->
+    <!-- bower:css -->
+    <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css" />
+    <link rel="stylesheet" href="bower_components/font-awesome/css/font-awesome.css" />
+    <!-- endbower -->
+    <!-- endbuild -->
+    <!-- build:css(.tmp) styles/main.css -->
+    <link rel="stylesheet" href="styles/main.css">
+    <!-- endbuild -->
+        <link rel="stylesheet" href="bower_components/ngnotification/notification.css" />
+  </head>
+  <body ng-app="chairmanApp" ng-controller="LoginCtrl as login">
+    <!--[if lte IE 8]>
+      <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+    <![endif]-->
+
+    <!-- Add your site or application content here -->
+   
+    <!-- ngNotification -->
+    <div notifications="bottom right"></div>
+
+    <!-- Modal -->
+    <div class="modal" ng-class="{'show': !logged, hide: logged }" data-keyboard="false" data-backdrop="static" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h3 class="modal-title" id="myModalLabel">Login :</h3>
+          </div>
+          <div class="modal-body">
+            <div class="container">
+              <div class="row">
+                <div class="col-md-6 col-md-offset-1">
+                  <form ng-submit="login(formLogin);" name="formLogin" novalidate>
+                    <label for="loginPseudo" >
+                      Pseudo
+                    </label>
+                    <br>
+                    <input type="text" id="loginPseudo" name="pseudo" ng-model="login.pseudo" required autofocus/>
+
+                    <span ng-show="formLogin.pseudo.$error.required" class="red">
+                      <span class="red glyphicon glyphicon-exclamation-sign"></span> A pseudo is required!
+                    </span>
+                    <br>
+                    <label for="loginPassword" >
+                      Mot de passe  
+                    </label>
+                    <br>
+                    <input type="password" id="loginPassword" name="password" ng-model="login.password" required />
+                    <span ng-show="formLogin.password.$error.required" class="red">
+                      <span class="glyphicon glyphicon-exclamation-sign"></span> A password is required!
+                    </span>
+                    <br>
+                    <button class="button" ng-disabled="formLogin.$invalid">
+                      <span class="glyphicon glyphicon-send button-icon"></span>Login
+                    </button>
+                  </form>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="modal-footer">
+          </div>
+        </div>
+      </div>
+    </div>
+    <div ng-class="{'app-container' : !logged}">
+
+    <header  style="height: 60px;" ng-controller="SpeakerCtrl as speaker"> <!--ng-controller="MainCtrl as main"-->
+        <ng-top-menu-tabs>
+         <ng-top-menu-tab title="Rédiger une question">
+            <h3>Rédiger une question au conférencier :</h3>
+            <form ng-submit="sendQuestionSpeaker(question); toggle()" name="formQuestion" novalidate>
+              <label for="noteContent" >
+                Contenu
+              </label>
+              <br>
+              <textarea id="noteContent" placeholder="Tapez ici!!!" ng-model="question.content" required name="content"></textarea>
+              <p ng-show="formQuestion.content.$error.required" class="red">
+                <span class="glyphicon glyphicon-exclamation-sign"></span> A note is required!!!
+              </p>
+              <br>
+              <button class="button" ng-disabled="formQuestion.$invalid">
+                <span class="glyphicon glyphicon-send button-icon"></span>Send
+              </button>
+            </form>
+          </ng-top-menu-tab>
+          
+          <ng-top-menu-tab   title="Rédiger une note" >
+            <h3>Rédiger une note au conférencier :</h3>
+            <form  ng-submit="sendNoteSpeaker(note); toggle(); note.timeLeft = null;" name="formNote" novalidate>
+              <!--<label for="timeLeft">
+                Prévenir du temps restant
+              </label>
+              <input type="range" min="0" max="20" step="1" ng-model="note.timeLeft">
+              Il reste : {{ note.timeLeft }}
+              <br>
+              <br>-->
+              <label for="noteContent">
+                Contenu
+              </label>
+              <br>
+              <textarea id="noteContent" placeholder="Tapez ici!!!" ng-model="note.content" required name="content"></textarea>
+              <p ng-show="formNote.content.$error.required" class="red">
+                <span class="glyphicon glyphicon-exclamation-sign"></span> A note is required!!!
+              </p>
+              <br>
+
+              <button class="button" ng-disabled="formNote.$invalid">
+                <span class="glyphicon glyphicon-send button-icon"></span>Send
+              </button>
+            </form>
+          </ng-top-menu-tab>
+        </ng-top-menu-tabs>
+
+        <ng-button-time ng-click="sendNotificationTimeSpeaker()" text="Time"></ng-button-time>
+    </header>
+
+    <div class="content">
+      <div ng-view=""></div>
+    </div>
+  </div>
+
+    <!-- Google Analytics: change UA-XXXXX-X to be your site's ID -->
+     <script>
+       !function(A,n,g,u,l,a,r){A.GoogleAnalyticsObject=l,A[l]=A[l]||function(){
+       (A[l].q=A[l].q||[]).push(arguments)},A[l].l=+new Date,a=n.createElement(g),
+       r=n.getElementsByTagName(g)[0],a.src=u,r.parentNode.insertBefore(a,r)
+       }(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+       ga('create', 'UA-XXXXX-X');
+       ga('send', 'pageview');
+    </script>
+
+    <!-- build:js(.) scripts/vendor.js -->
+    <!-- bower:js -->
+    <script src="bower_components/jquery/dist/jquery.js"></script>
+    <script src="bower_components/angular/angular.js"></script>
+    <script src="bower_components/bootstrap/dist/js/bootstrap.js"></script>
+    <script src="bower_components/bootstrap-sass-official/assets/javascripts/bootstrap.js"></script>
+    <script src="bower_components/angular-animate/angular-animate.js"></script>
+    <script src="bower_components/angular-cookies/angular-cookies.js"></script>
+    <script src="bower_components/angular-resource/angular-resource.js"></script>
+    <script src="bower_components/angular-route/angular-route.js"></script>
+    <script src="bower_components/angular-sanitize/angular-sanitize.js"></script>
+    <script src="bower_components/angular-touch/angular-touch.js"></script>
+    <script src="bower_components/jquery-ui/jquery-ui.js"></script>
+    <script src="bower_components/angular-ui-sortable/sortable.js"></script>
+    <script src="bower_components/moment/moment.js"></script>
+    <script src="bower_components/angular-moment/angular-moment.js"></script>
+    <!-- endbower -->
+    <!-- endbuild -->
+    <script src="bower_components/moment/locale/fr.js"></script>
+    <script src="bower_components/ngnotification/notification.js"></script>
+    <script src="bower_components/angular-socket-io/socket.js"></script>
+    <script src="bower_components/socket.io-client/socket.io.js"></script>
+    <script src="scripts/lib/jquery.ui.touch-punch.min.js"></script>
+    <!-- build:js({.tmp,app}) scripts/scripts.js -->
+    <script src="scripts/app.js"></script>
+    <script src="scripts/controllers/main.js"></script>
+    <script src="scripts/directives/question.js"></script>
+    <script src="scripts/directives/ngtopmenutabs.js"></script>
+    <script src="scripts/directives/ngtopmenutab.js"></script>
+    <script src="scripts/controllers/speaker.js"></script>
+    <script src="scripts/directives/ngbuttontime.js"></script>
+    <script src="scripts/controllers/login.js"></script>
+    <script src="scripts/services/socketquestion.js"></script>
+    <script src="scripts/services/auth.js"></script>
+    <script src="scripts/services/notification.js"></script>
+    <script src="scripts/services/question.js"></script>
+    <script src="scripts/services/note.js"></script>
+    <!-- endbuild -->
+</body>
+</html>

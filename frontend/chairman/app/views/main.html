@@ -1,0 +1,60 @@
+
+ <div class="overlay" ng-if="displayOverlay">
+      <div class="overlay-container">
+        <div class="overlay-header col-sm-12 col-md-12 col-lg-12">
+          <section class="col-sm-6 col-md-6 col-lg-6" >
+            <ng-question question="questionsMerge[0]" remove-to-merge-question="removeToMergeQuestion(question)" ></ng-question>
+          </section>
+          <div class="col-sm-offset-2 col-md-offset-2 col-lg-offset-2 col-sm-4 col-md-4 col-lg-4" >
+            <button class="button" ng-click="$parent.validateMergeQuestion(); $parent.displayOverlay = false;">
+              <span class="glyphicon glyphicon-send button-icon"></span>valider
+            </button>
+            <button class="button button-alert" ng-click="$parent.cancelMergeQuestion(); $parent.displayOverlay = false;">
+              <span class="glyphicon glyphicon-remove button-icon"></span>Close
+            </button>
+          </div>
+        </div>
+        <div class="col-sm-12 col-md-12 col-lg-12">
+          <div class="overlay-content">
+            <section ng-repeat="question in questions | orderBy:up:true" class="col-sm-4 col-md-4 col-lg-4">
+              <ng-question question="question" remove-to-merge-question="removeToMergeQuestion(question)" add-to-merge-question="addToMergeQuestion(question)" choose-as-main-merge-question="chooseAsMainMergeQuestion(question, questionsMerge[0])"></ng-question>
+            </section>
+          </div>
+        </div>
+      </div>
+    </div>
+
+<fieldset class="col-sm-6 col-md-6 col-lg-6">
+  <legend>Question public : </legend>
+
+  <div>
+    <div ng-click="order('created_at')" class="col-sm-6 col-md-6 col-lg-6 question-tab">
+      <i ng-show="predicate == 'created_at'" ng-class="{ 'glyphicon glyphicon-circle-arrow-down': reverse, 'glyphicon glyphicon-circle-arrow-up': !reverse }"></i> Date
+    </div>
+    <div ng-click="order('up')" class="col-sm-6 col-md-6 col-lg-6 question-tab" >
+      <i ng-show="predicate == 'up'" ng-class="{ 'glyphicon glyphicon-circle-arrow-down': reverse, 'glyphicon glyphicon-circle-arrow-up': !reverse }"></i> UpVote
+    </div>
+  </div>
+  <br>
+  <br>
+  <div class="question-container">
+    <section ng-repeat="question in questions | orderBy:predicate:reverse">
+        <ng-question question="question" answer-question-to-public="answerQuestionToPublic(question, answer)"
+         merge-question-to-chairman="mergeQuestionToChairman(question)" send-question-to-speaker="sendQuestionToSpeaker(question)" 
+         mask-question-to-chairman="maskQuestionToChairman(question)" >
+         
+       </ng-question>
+    </section>
+  </div>
+</fieldset>
+
+
+<fieldset class="col-sm-offset-1 col-md-offset-1 col-lg-offset-1  col-sm-5 col-md-5 col-lg-5">
+  <legend>Question fin de conférence : </legend>
+  <div ui-sortable="sortableOptions" ng-model="questions" class="question-left-container">
+    <section ng-repeat="question in questionsSpeaker">
+      <ng-question question="question" answer-question-to-public="answerQuestionToPublic(question, answer)"
+         mask-question-to-chairman="maskQuestionToChairman(question)"></ng-question>
+    </section>
+  </div>
+</fieldset>

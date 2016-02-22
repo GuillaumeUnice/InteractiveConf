@@ -1,0 +1,36 @@
+<fieldset class="col-sm-6 col-md-6 col-lg-6">
+  <legend>Question public : </legend>
+
+  <div class="question-container">
+    <section ng-repeat="event in events.questions | filter:{status_code:0}">
+
+      <div class="question" >
+        <span class="glyphicon glyphicon-user"> </span>  name : {{public_name}}
+        <br>
+        <div class="question-header glyphicon glyphicon-time">
+          il y'a {{created_at}}
+
+        </div>
+
+        <br>
+        <br>
+        <label editable-textarea="event.content" e-rows="4" e-cols="50" ng-model="event.content"  style="color : black ; text-transform: capitalize; text-shadow: 2px 2px #FFFFFF;">
+          {{event.content}}
+        </label>
+        <br>
+        <br>
+        <span><i class="glyphicon glyphicon-tag"></i>Slide #{{event.num_slide}} </span>
+
+        <div class="btn-group pull-right">
+          <i class="btn glyphicon glyphicon-send pull-right question-icon gi-1-8" ng-click="validateQuestion($index)"></i>
+          <i class="btn glyphicon glyphicon-trash pull-right question-icon gi-1-8" ng-click="removeQuestion($index)"></i>
+        </div>
+      </div>
+
+
+
+    </section>
+
+
+  </div>
+</fieldset>

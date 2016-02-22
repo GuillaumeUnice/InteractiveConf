@@ -1,0 +1,192 @@
+@import "color.scss";
+@import "topMenu.scss";
+@import "button.scss";
+@import "question.scss";
+@import "buttonTime.scss";
+@mixin blur($px: 0) {
+    -webkit-filter: blur(#{$px}px) !important;
+    -ms-filter: blur(#{$px}px) !important;
+    -moz-filter: blur(#{$px}px) !important;
+    filter: url("data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\'><filter id=\'blur\'><feGaussianBlur stdDeviation=\'#{$px}\' /></filter></svg>#blur");
+    filter:progid:DXImageTransform.Microsoft.Blur(PixelRadius='#{$px}');
+}
+
+/// Mixin to customize scrollbars
+/// Beware, this does not work in all browsers
+/// @param {Length} $size - Horizontal scrollbar's height and vertical scrollbar's width
+/// @param {Color} $foreground-color - Scrollbar's color
+/// @param {Color} $background-color [mix($foreground-color, white, 50%)] - Scrollbar's color
+/// @example scss - Scrollbar styling
+/// @include scrollbars(.5em, slategray);
+@mixin scrollbars($size, $foreground-color, $background-color: mix($foreground-color, white,  50%)) {
+  // For Google Chrome
+  ::-webkit-scrollbar {
+      width:  $size;
+      height: $size;
+  }
+
+  ::-webkit-scrollbar-thumb {
+      background: $foreground-color;
+  }
+
+  ::-webkit-scrollbar-track {
+      background: $background-color;
+  }
+
+  // For Internet Explorer
+  body {
+    scrollbar-face-color: $foreground-color;
+    scrollbar-track-color: $background-color;
+  }
+}
+
+@include scrollbars(.6em, slategray);
+
+::selection {
+  color: white;
+  background: lighten( $color2, 20% );
+}
+
+$icon-font-path: "../bower_components/bootstrap-sass-official/assets/fonts/bootstrap/";
+// bower:scss
+@import "bootstrap-sass-official/assets/stylesheets/_bootstrap.scss";
+// endbower
+
+/* overwrite bootstrap */
+.modal-content {
+  background-color: lighten( $color1, 10% );
+  border-radius : 0px;
+}
+.modal-header {
+  border : none;
+  background-color: $color2;
+}
+.modal-footer {
+  border: none;
+    background-color: $color2;
+}
+.app-container{
+  @include blur(5); 
+}
+
+.content {
+  margin : 20px;
+}
+body {
+  color: $colorText1;
+  background-color : $color1;
+}
+
+textarea, input {
+  border: 3px solid #fff;
+  background-color : $color1;
+  padding: 3px;
+}
+button {
+  cursor: pointer !important;
+}
+textarea {
+  min-height: 200px;
+  min-width: 50%;
+  resize: none;
+}
+
+label, button {
+  cursor: pointer;
+}
+
+fieldset {
+  border: 3px solid $color2;
+  width: 95%;
+  padding-bottom: 10px;
+  height: 85vh;
+  padding-bottom: 10px;
+}
+
+legend {
+  color : $color2;
+  width: auto;
+  padding: 5px;
+  border: 0px !important;
+  margin-bottom : 0px;
+}
+
+.gi-1-5{font-size: 1.5em;}
+.gi-1-8{font-size: 1.8em;}
+.gi-2x{font-size: 2em;}
+.gi-3x{font-size: 3em;}
+.gi-4x{font-size: 4em;}
+.gi-5x{font-size: 5em;}
+
+.question-tab {
+  cursor: pointer;
+  background-color : $color2;
+}
+.question-tab:hover {
+  background-color : darken( $color2, 10% );
+}
+
+.question-tab {
+  font-size : 1.5em;
+  text-align: center;
+  padding : 10px;
+}
+
+.overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 50;
+  background-color: rgba(0,0,0,0.8); 
+}
+
+.overlay-container {
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    margin: auto;
+    background-color: $color1;
+    text-align: center;
+}
+
+.overlay-header {
+  margin-top: 45px;
+  /*padding-bottom: 15px;*/
+  border-bottom: 8px solid $color3;
+    max-height: 30vh;
+}
+
+.overlay-content {
+  overflow-y:scroll; 
+  position:relative;
+  max-height: 65vh;
+  padding-bottom: 70px; /*50*/
+}
+
+.overlay-content section {
+  padding: 0;
+  margin: 0;
+}
+
+/*.overlay-content section .question{
+  margin-right: 10px;
+}*/
+
+.overlay-show {
+  display: inline-block;
+}
+.overlay-hide {
+  display: none;
+}
+
+
+/*notification*/
+.bigBox {
+    height: 110px !important;
+}
+
+input[type="range"] {
+  width: 50% !important;
+}

@@ -1,0 +1,23 @@
+@charset "UTF-8";
+
+$red : rgb(230, 61, 61);
+$blue : rgb(71, 163, 218);
+$gray : rgb(50, 50, 50);
+//darken( $blue, 10% )
+/*
+$color1 : #C0C0C0;//$gray;
+$color2 : black;
+$color3 : $blue;
+*/
+$color1: #EEE;
+$color2: #DCF7D7;
+$color3: #9CDE90;
+
+$green-light: #DCF7D7;
+$green-darker: #9CDE90;
+
+$colorText1 : rgb(0,0,0);
+
+.red {
+	color : $red;
+}

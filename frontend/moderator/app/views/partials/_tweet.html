@@ -1,0 +1,34 @@
+<fieldset class="col-sm-6 col-md-6 col-lg-6">
+  <legend>Tweet public : </legend>
+
+  <div class="question-container">
+    <section ng-repeat="tweet in tweets">
+
+      <div class="question" >
+        <span class="glyphicon glyphicon-user"> </span> name : {{tweet.user.name}}
+        <br>
+        <br>
+        <div class="question-header glyphicon glyphicon-time animate-show">
+          il y'a ....  {{tweet.created_at}}
+        </div>
+        <br>
+        <label e-rows="4" e-cols="50" style="color : black ; text-transform: capitalize; text-shadow: 2px 2px #FFFFFF;">
+          {{tweet.text}}
+        </label>
+        <br>
+        <br>
+        <span><i class="glyphicon glyphicon-tag"></i></span>
+
+        <div class="btn-group pull-right">
+          <i class="btn glyphicon glyphicon-send pull-right question-icon gi-1-8" ng-click="sendToScreen($index)"></i>
+          <i class="btn glyphicon glyphicon-trash pull-right question-icon gi-1-8" ng-click="removeTweet($index)"></i>
+        </div>
+      </div>
+
+
+
+    </section>
+
+
+  </div>
+</fieldset>

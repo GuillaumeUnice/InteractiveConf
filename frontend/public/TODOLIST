@@ -1,0 +1,9 @@
+<!-- TODO LIST public :
+        - TODO formulaire d'envoi de la question + renseignement numero slide (optionnel)
+              - compteur de caracteres
+              - empecher d'ecrire si nb caractere depassé
+        - TODO s'inscrire avec nom et prenom
+        - TODO s'authentifier a nouveau apres une deconnexion
+        - TODO afficher les questions de l'utilisateur ainsi que celles validées par modérateur
+        - TODO récupérer les réponses aux questions via socket   => responseFromChairman...
+-->

@@ -1,0 +1,29 @@
+@import "chart-color-public";
+
+/* ------------------------------------------
+ *    Formulaire dans sendQuestion.js
+ * ------------------------------------------ */
+
+#formulaire {
+  background-color: $gray-light;
+  border: 1px solid $gray-darker-border;
+  border-radius: 5px;
+  margin: 10px 0;
+  padding: 0 30px 30px;
+
+  /* ombrage */
+  box-shadow:2px 2px 2px $gray-shadow;
+  -moz-box-shadow:2px 2px 2px $gray-shadow;
+  -webkit-box-shadow:2px 2px 2px $gray-shadow;
+
+  h2 {
+    padding: 10px 0 5px 0;
+  }
+  textarea, input {
+    font-size: 20px;
+    resize: none;
+  }
+  input {
+    height:40px;
+  }
+}

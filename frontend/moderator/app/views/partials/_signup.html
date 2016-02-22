@@ -1,0 +1,41 @@
+
+<div class="modal" ng-class="{'show': !created, hide: created }" data-keyboard="false" data-backdrop="static"    role="dialog" >
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3 class="modal-title" id="myModalLabelbis">Signup :</h3>
+      </div>
+      <div class="modal-body">
+        <div class="container">
+          <div class="row">
+            <div class="col-md-6 col-md-offset-1">
+              <form  name="formSignup" novalidate>
+                <label for="SignupPseudo" >
+                  Pseudo
+                </label>
+                <br>
+                <input type="text" id="SignupPseudo" name="pseudo" ng-model="signup.pseudo" required />
+
+                <br>
+                <label for="signupPassword" >
+                  Mot de passe
+                </label>
+                <br>
+                <input type="password" id="signupPassword" name="password" ng-model="signup.password" required />
+
+                <br>
+                <br>
+                <span class="btn glyphicon glyphicon-send btn-info  btn-lg" ng-click="createUser();logged=false ; created=true;"></span>Signup
+
+                <span href="/#/" class="btn glyphicon glyphicon-remove btn-info btn-lg" ng-click="logged=false ; created=true"></span>Back
+
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+      </div>
+    </div>
+  </div>
+</div>
