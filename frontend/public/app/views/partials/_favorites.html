@@ -1,19 +1,78 @@
-<div ng-repeat="question in questionsFavorites.favorites track by $index">
-  <div class="questionWrapper col-xs-12" ng-class="{answered: questionsList[question.id-1].response !== null}">
-    <strong>{{questionsList[question.id-1].user_name}}</strong> : {{questionsList[question.id-1].content}} <br/>
-    <div class="btnActions">
-      <div class="col-xs-4 text-left"> <!-- ng-if="question.response !== null"-->
-        <input ng-hide="questionsList[question.id-1].response == null" ng-click="show = !show" type="button" style="font-size:20px;" value="▼"/>
+<!--TODO partial-->
+<div style="border:1px solid #bababa;background-color:#FFF;border-radius:5px;padding:5px;margin-bottom:10px;" class="text-center">
+  <span style="color:green">Vert</span> : question personnelle, <span style="color:#baa92f">Jaune</span> : question ayant une réponse, <span style="color:red">Rouge</span> : question refusée.
+</div>
+
+<div class="allQuestionsWrapper">
+      <div ng-repeat="favorite in list.questionsFavorites track by $index">
+        <div class="questionWrapper col-xs-12" ng-class="{'answered': favorite.question.contentresponse != null,
+        'deleted': favorite.question.status_code == 10,
+        'ownquestion': favorite.question.public_id == user.id && favorite.question.status_code != 10,
+        'first-block':$first}">
+
+          <div class="top-question">
+            <p class="question-info">
+              <i class="fa fa-user"></i> <strong>{{favorite.question.nom}} {{favorite.question.prenom}}</strong>
+                <span class="pull-right hour-block">
+                  <i style="color:#3B7DAC" class="fa fa-clock-o"></i>
+                  <span class="question-hour" am-time-ago="favorite.question.created_at | amFromUnix"></span>
+                </span>
+            </p>
+            <p class="question-content">{{favorite.question.content}}</p>
+          </div>
+
+          <hr>
+
+          <!--questions mergees-->
+          <div ng-repeat="merge in favorite.question.merge" ng-if="favorite.question.merge != null" class="col-xs-12">
+            <div style="border:1px solid #d8d8d8;background-color: #FFF;padding:5px;margin-bottom:5px;border-radius: 5px;">
+              <i class="fa fa-user"></i> <strong>{{merge.nom}} {{merge.prenom}}</strong>
+          <span class="pull-right hour-block">
+            <i style="color:#3B7DAC" class="fa fa-clock-o"></i>
+            <span class="question-hour" am-time-ago="merge.created_at | amFromUnix"></span>
+          </span> <br/>
+              {{merge.content}}
+            </div>
+          </div>
+
+          <div class="clearfix"></div>
+
+          <!-- les actions -->
+          <div class="btn-actions">
+              <!--response-->
+              <div class="col-xs-4 text-left">
+                <!-- gestion affiche si ya une reponse btn-up btn-down -->
+                <div ng-hide="favorite.question.responsecontent == null">
+                  <button class="btn btn-default" title="Show the answer" ng-class="{'btn-fold': favorite.question.responsecontent != null}" ng-click="show = !show">
+                    <div ng-if="favorite.question.responsecontent != null && show == false"><i class="fa fa-arrow-down"></i></div>
+                    <div ng-if="show == true && favorite.question.responsecontent != null"><i class="fa fa-arrow-up"></i></div>
+                  </button>
+                </div>
+              </div>
+
+              <!--slide -->
+              <div class="col-xs-4 text-center">
+                <div class="nb-slide" ng-hide="favorite.question.num_slide == null">
+                  <i class="fa fa-thumb-tack" title="slide"></i> Slide {{favorite.question.num_slide}}
+                </div>
+              </div>
+
+              <!--vote-->
+              <div class="col-xs-4 text-right">
+                <button class="btn btn-default" ng-class="{'btn-upvote': favorite.question.up_vote > 0}"
+                        ng-click="">
+                  <i class="fa fa-star"></i>
+                  {{favorite.question.up_vote}}
+                </button>
+              </div>
+
+            </div>
+
+          <!-- la reponse -->
+          <div ng-if="favorite.question.responsecontent != null" ng-show="show" class="questionAnswer text-left animate-show">
+            <u><strong>Answer</strong></u> : {{favorite.question.responsecontent}}
+          </div>
+
       </div>
-      <div class="col-xs-4 text-center">
-        <div class="nbSlide">Slide n°{{questionsList[question.id-1].slide}}</div>
       </div>
-      <div class="col-xs-4 text-right">
-        <input type="button" ng-click="questionsList[question.id-1].upvote = questionsList[question.id-1].upvote + 1" style="font-size:20px;" value="👍{{questionsList[question.id-1].upvote}}" />
-      </div>
-    </div>
-    <div ng-show="show" class="questionAnswer text-left animate-show" ng-repeat="response in questionsList[question.id-1].response track by $index">
-      <strong>{{response.answered_by}}</strong> : {{response.content}}
-    </div>
-  </div>
 </div>

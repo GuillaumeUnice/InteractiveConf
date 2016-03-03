@@ -7,14 +7,18 @@
 
 
 .allQuestionsWrapper {
-  margin-top: 30px;
+  margin-top: 5px;
   font-size: 16px;
+}
+
+.questionWrapper.first-block {
+  margin-top: 0;
 }
 .questionWrapper {
   background-color: $gray-light;
   border: 1px solid $gray-darker-border;
   border-radius: 5px;
-  margin-bottom: 20px;
+  margin-top: 20px;
   padding: 20px 20px 10px 20px;
 
   /* ombrage */
@@ -30,6 +34,11 @@
   -moz-hyphens: auto;
   hyphens: auto;
 
+  @media screen and (min-width: 768px) {
+    .top-question {
+      padding-left: 5px;
+    }
+  }
   .question-info, .question-content {
     padding: 0 10px;
   }
@@ -37,10 +46,13 @@
     color: $gray-text-question-content;
     margin-top: -5px;
   }
-
 }
 
-.btnActions {
+.bottom-margin {
+  margin-bottom:50px;
+}
+
+.btn-actions {
   padding-bottom: 25px;
 
   input {
@@ -61,15 +73,20 @@
   }
 }
 
-.nbSlide {
+.nb-slide {
   line-height: 35px;
   color: $blue-text;
+  font-size:12px;
 }
 
-.question_hour {
+.hour-block {
+  padding-right:3px;
+  font-size: 12px;
+}
+.question-hour {
   font-style: italic;
-  color: $gray-darker-text;
-  padding-left:10px;
+  color: $blue-text;
+  padding-right: 2px;
 }
 
 
@@ -78,19 +95,32 @@
  * ------------------------------------------ */
 
 /*
-  Question qui a obtenue une réponse
+  Les différentes questions / reponses status
 */
 .answered {
-  background-color: #FFF;
-  border: 1px solid $gray-darker-border;
+  //background-color: #FFF;
+/*   background: url("/images/bg-answered-question.png") repeat;
+ */  border: 1px solid $gray-darker-border;
+  background-color: rgba(253, 255, 165, 0.5);
 }
+.deleted {
+/*   background: url("/images/bg-deleted-question.png") repeat;
+ */  border: 1px solid $gray-darker-border;
+  background-color: rgba(255, 200, 200, 0.5);
+}
+.ownquestion {
+/*   background: url("/images/bg-validated-question.png") repeat;
+ */  border: 1px solid $gray-darker-border;
+  background-color: rgba(221, 255, 209, 0.5);
+}
+
 
 /*
   Réponse dépliée
 */
 .questionAnswer {
-  background-color: $green-light;
-  border: 1px solid $green-darker;
+  background-color: #FFF;
+  border: 1px solid #d7d7d7;
   border-radius: 3px;
   margin: 23px 15px 4px;
   padding: 10px;
@@ -106,8 +136,8 @@ textarea {
   opacity: 1;
 }
 .animate-show.ng-hide-add, .animate-show.ng-hide-remove {
-  -webkit-transition:all linear 0.2s;
-  transition:all linear 0.2s;
+  -webkit-transition:all linear 0.02s;
+  transition:all linear 0.02s;
 }
 .animate-show.ng-hide {
   line-height: 0;

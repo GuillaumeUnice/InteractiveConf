@@ -8,9 +8,12 @@
  * Controller of the chairmanApp
  */
 angular.module('chairmanApp')
-  .controller('MainCtrl', function ($scope, CONFIG, socketQuestion, question) 
+  .controller('MainCtrl', function ($scope, CONFIG, socketQuestion, question)
   {
-
+    /**
+     * function wich call server in order to recover all questions
+     * It's useful when you connect at the API or when you reconnect (loose connection)
+     */
     function loadQuestion() {
       question.loadQuestion().then(function(questions){
         angular.forEach(questions, function(value, key) {
@@ -21,43 +24,59 @@ angular.module('chairmanApp')
       });
     }
 
+    // initialize
     $scope.displayOverlay = false;
-
+    $scope.questionsMerge = [];
+    $scope.questions = [];
+    $scope.questionsSpeaker = [];
+    /**
+     * Connect to the socket resource : 'reconnectSocket'
+     * This event it's produce when you loose connection
+     * @param  {Object} event
+     * @param  {Object} contains all information send by the socket Service
+     */
     $scope.$on('reconnectSocket', function(event, args) {
       loadQuestion();
     });
 
+    /**
+     * Listen at the resource : 'loginChanged'
+     * It's the pattern Observer to know where the controller can query to the API
+     * @param  {Object} event
+     * @param  {Object} contains all information send by the Observer pattern
+     */
     $scope.$on('loginChanged', function(event, args) {
 
       loadQuestion();
 
       socketQuestion.init(args.token);
       socketQuestion.on('question', function(questionReceive) {
-        
-        //console.log(questionReceive);
+
         $scope.manageQuestion(questionReceive);
-      });  
+      });
       socketQuestion.on('vote', function(questionReceive) {
         console.log(questionReceive);
         $scope.manageVote(questionReceive);
-      }); 
+      });
 
     });
 
-
+    /**
+     * Distribute all question receive in real time by the server
+     * @param  {Object} questionReceive contains all information about the new question receive
+     */
     $scope.manageQuestion = function(questionReceive) {
-      
-      // converte Date
+
+      // convert Date
       questionReceive.created_at = new Date(questionReceive.created_at.replace(' ', 'T')).getTime() / 1000;
-     
+
       if(questionReceive.status_code === CONFIG.QUESTION_STATUS_SENT) {
         var elementPos = $scope.questionsSpeaker.map(function(x) {return x.id; }).indexOf(questionReceive.id);
         if(elementPos !== -1) { // if elem exist already
           $scope.questionsSpeaker[elementPos] = questionReceive;
         } else {
           $scope.questionsSpeaker.push(questionReceive);
-        } 
-        //$scope.questionsSpeaker.push(questionReceive);
+        }
       } else if((questionReceive.status_code === CONFIG.QUESTION_STATUS_MERGED)
           || (questionReceive.status_code === CONFIG.QUESTION_STATUS_VALIDATED)){
         var elementPos = $scope.questions.map(function(x) {return x.id; }).indexOf(questionReceive.id);
@@ -65,12 +84,16 @@ angular.module('chairmanApp')
           $scope.questions[elementPos] = questionReceive;
         } else {
           $scope.questions.push(questionReceive);
-        } 
+        }
 
       }
       //$scope.$apply();
     };
 
+    /**
+     * Update a question
+     * @param  {Object} question update
+     */
     $scope.manageVote = function(question){
 
       for (var i = 0 ; i < $scope.questions.length ;i++) {
@@ -83,66 +106,10 @@ angular.module('chairmanApp')
 
     };
 
-    //socketQuestion.init();
-  	/*socketQuestion.on('moderator', function(msg) {
-      $scope.questions.push(msg);
-      $scope.$apply;
-  		console.log(msg);
-  	});*/
-    /*
-      socketQuestion.on(eventName, function (msg) {
-        //var args = arguments;
-        
-        $rootScope.$apply(function () {
-          callback.apply(socket, args);
-        });
-      });
-    */
-
-  	$scope.questions = [
-  /*  {'id' :  6, 'name' : 'Jhon Doe', 'status_code' : 5, 'up_vote' : 44, 'num_slide' : 3, 'content' : 'Ceci est la question 1', 'created_at' : '1453222958'},
-    {'id' :  7, 'name' : 'Jhon Doe', 'status_code' : 5, 'up_vote' : 22, 'num_slide' : null, 'content' : 'Ceci est la question 2', 'created_at' : '1449409528'},
-    {'id' :  8, 'name' : 'Jhon Doe', 'status_code' : 5, 'up_vote' : 33, 'num_slide' : null, 'content' : 'Ceci est la question 3', 'created_at' : '1449409529'}
-  /*		{'id' :  1, 'name' : 'Jhon Doe', 'status_code' : 5, 'up' : 1, 'slide_start' : null, 'slide_stop' : null, 'content' : 'La faille Hearthbleed entre t\'elle dans cette catégorie de faille?', 'created_at' : '1449409522'},
-  		{'id' :  2, 'name' : 'Jhon Doe', 'status_code' : 5, 'up' : 5, 'slide_start' : 3, 'slide_stop' : 3, 'content' : 'Ceci est la question 2?', 'created_at' : '21449409521'},
-  		{'id' :  3, 'name' : 'Jhon Doe', 'status_code' : 5, 'up' : 4, 'slide_start' : 2, 'slide_stop' : 4, 'content' : 'Ceci est la question 2?', 'created_at' : '1449409521'},
-  		{'id' :  4, 'name' : 'Jhon Doe', 'status_code' : 5, 'up' : 12, 'slide_start' : 2, 'slide_stop' : 4, 'content' : 'La faille Hearthbleed entre t\'elle dans cette catégorie de faille?', 'created_at' : '1449409522'},
-  		{'id' :  5, 'name' : 'Jhon Doe', 'status_code' : 5, 'up' : 6, 'slide_start' : 2, 'slide_stop' : 4, 'content' : 'Ceci est la question 2?', 'created_at' : '21449409521'},
-  		{'id' :  6, 'name' : 'Jhon Doe', 'status_code' : 5, 'up' : 40, 'slide_start' : 2, 'slide_stop' : 4, 'content' : 'Ceci est la question 2?', 'created_at' : '1449409521'},
-  		{'id' :  7, 'name' : 'Jhon Doe', 'status_code' : 5, 'up' : 14, 'slide_start' : 2, 'slide_stop' : 4, 'content' : 'La faille Hearthbleed entre t\'elle dans cette catégorie de faille?', 'created_at' : '1449409522'},
-  		{'id' :  8, 'name' : 'Jhon Doe', 'status_code' : 5, 'up' : 9, 'slide_start' : 2, 'slide_stop' : 4, 'content' : 'Ceci est la question 2?', 'created_at' : '21449409521'},
-  		{'id' :  9, 'name' : 'Jhon Doe', 'status_code' : 5, 'up' : 42, 'slide_start' : 2, 'slide_stop' : 4, 'content' : 'Ceci est la question 2?', 'created_at' : '1449409521'},
-*/
-
-      /*
-      {'id' :  1, 'name' : 'Jhon Doe', 'up' : 1, 'content' : 'La faille Hearthbleed entre t\'elle dans cette catégorie de faille?', 'created_at' : '1449409522'},
-      {'id' :  2, 'name' : 'Jhon Doe', 'up' : 5, 'content' : 'Ceci est la question 2?', 'created_at' : '21449409521'},
-      {'id' :  3, 'name' : 'Jhon Doe', 'up' : 4, 'content' : 'Ceci est la question 2?', 'created_at' : '1449409521'},
-      {'id' :  4, 'name' : 'Jhon Doe', 'up' : 12, 'content' : 'La faille Hearthbleed entre t\'elle dans cette catégorie de faille?', 'created_at' : '1449409522'},
-      {'id' :  5, 'name' : 'Jhon Doe', 'up' : 6, 'content' : 'Ceci est la question 2?', 'created_at' : '21449409521'},
-      {'id' :  6, 'name' : 'Jhon Doe', 'up' : 40, 'content' : 'Ceci est la question 2?', 'created_at' : '1449409521'},
-      {'id' :  7, 'name' : 'Jhon Doe', 'up' : 14, 'content' : 'La faille Hearthbleed entre t\'elle dans cette catégorie de faille?', 'created_at' : '1449409522'},
-      {'id' :  8, 'name' : 'Jhon Doe', 'up' : 9, 'content' : 'Ceci est la question 2?', 'created_at' : '21449409521'},
-      {'id' :  9, 'name' : 'Jhon Doe', 'up' : 42, 'content' : 'Ceci est la question 2?', 'created_at' : '1449409521'},
-      */
-  	
-  	];
-
-    $scope.questionsSpeaker = [
-     /* {'id' :  1, 'name' : 'Jhon Doe', 'status_code' : 25, 'up' : 1, 'slide_start' : null, 'slide_stop' : null, 'content' : 'La faille Hearthbleed entre t\'elle dans cette catégorie de faille?', 'created_at' : '1449409522'},
-      {'id' :  2, 'name' : 'Jhon Doe', 'status_code' : 25, 'up' : 5, 'slide_start' : 3, 'slide_stop' : 3, 'content' : 'Ceci est la question 2?', 'created_at' : '21449409521'},
-      {'id' :  3, 'name' : 'Jhon Doe', 'status_code' : 25, 'up' : 4, 'slide_start' : 2, 'slide_stop' : 4, 'content' : 'Ceci est la question 2?', 'created_at' : '1449409521'},
-      {'id' :  4, 'name' : 'Jhon Doe', 'status_code' : 25, 'up' : 12, 'slide_start' : 2, 'slide_stop' : 4, 'content' : 'La faille Hearthbleed entre t\'elle dans cette catégorie de faille?', 'created_at' : '1449409522'},
-      {'id' :  5, 'name' : 'Jhon Doe', 'status_code' : 25, 'up' : 6, 'slide_start' : 2, 'slide_stop' : 4, 'content' : 'Ceci est la question 2?', 'created_at' : '21449409521'},
-      {'id' :  6, 'name' : 'Jhon Doe', 'status_code' : 25, 'up' : 40, 'slide_start' : 2, 'slide_stop' : 4, 'content' : 'Ceci est la question 2?', 'created_at' : '1449409521'},
-      {'id' :  7, 'name' : 'Jhon Doe', 'status_code' : 25, 'up' : 14, 'slide_start' : 2, 'slide_stop' : 4, 'content' : 'La faille Hearthbleed entre t\'elle dans cette catégorie de faille?', 'created_at' : '1449409522'},
-      {'id' :  8, 'name' : 'Jhon Doe', 'status_code' : 25, 'up' : 9, 'slide_start' : 2, 'slide_stop' : 4, 'content' : 'Ceci est la question 2?', 'created_at' : '21449409521'},
-      {'id' :  9, 'name' : 'Jhon Doe', 'status_code' : 25, 'up' : 42, 'slide_start' : 2, 'slide_stop' : 4, 'content' : 'Ceci est la question 2?', 'created_at' : '1449409521'},
-    */
-    ]; 
-
-    $scope.questionsMerge = [];
-
+    /**
+     * Send to the server the new schedule of end question
+     * @type {Object}
+     */
     $scope.sortableOptions = {
       update: function(e, ui) {
         if (ui.item.sortable.model === "can't be moved") {
@@ -152,21 +119,29 @@ angular.module('chairmanApp')
         }, function(msg){
           console.log('erreur promesses : ' + msg);
         });
-        
-        // add metod send endQuestion
-        console.log('sendSpeakerEndQuestion');
+
+        // TODO add method send endQuestion
+        //console.log('sendSpeakerEndQuestion');
       },
       axis: 'y'
     };
 
+    // initialize by default the question's filter when you start the App
   	$scope.predicate = 'created_at';
     $scope.reverse = true;
+    /**
+     * update filter of question
+     * @param  {String} predicate contain the attribut (created_at or up_vote) name on what the filter is apply
+     */
     $scope.order = function(predicate) {
         $scope.reverse = ($scope.predicate === predicate) ? !$scope.reverse : false;
         $scope.predicate = predicate;
     };
 
-
+    /**
+     * Send all question for end session in a tab at the server
+     * @param  {Array} questionToSend Array who contains all question
+     */
     $scope.sendQuestionToSpeaker = function(questionToSend) {
       question.sendQuestionToSpeaker(questionToSend).then(function(data){
         if(data.status === CONFIG.JSON_STATUS_SUCCESS) {
@@ -177,6 +152,11 @@ angular.module('chairmanApp')
       });
     };
 
+    /**
+     * Send response at a question to the server
+     * @param  {Object} questions the question concerned by the answer
+     * @param  {String} answer the content of the answer
+     */
     $scope.answerQuestionToPublic = function(questions, answer) {
 
       var questionAndAnswer = JSON.stringify({ question: questions, response: answer });
@@ -197,21 +177,45 @@ angular.module('chairmanApp')
       });
     };
 
-    $scope.maskQuestionToChairman = function(questionMask) {
-      question.deleteQuestionByChairman(questionMask).then(function(data){
-        console.log(questionMask);
-        // refind correct question's array
-        if(questionMask.status_code === CONFIG.QUESTION_STATUS_SENT) {
-           $scope.questionsSpeaker.splice($scope.questionsSpeaker.indexOf(questionMask), 1);
-        } else {
-          $scope.questions.splice($scope.questions.indexOf(questionMask), 1);
-        }
-      }, function(msg){
-        console.log('erreur promesses : ' + msg);
-      });
+    /**
+     * Send the question mask to the server in order to update is current status code
+     * @param  {Object} questionMask the question which be mask
+     */
+    $scope.maskQuestionToChairman = function(questionMask, sendToServer) {
+
+      if(sendToServer === undefined) {
+        sendToServer = true;
+      }
+      if(sendToServer) {
+         question.deleteQuestionByChairman(questionMask).then(function(data){
+
+          // refind correct question's array
+          if(questionMask.status_code === CONFIG.QUESTION_STATUS_SENT) {
+             $scope.questionsSpeaker.splice($scope.questionsSpeaker.indexOf(questionMask), 1);
+          } else {
+            $scope.questions.splice($scope.questions.indexOf(questionMask), 1);
+          }
+        }, function(msg){
+          console.log('erreur promesses : ' + msg);
+        });
+      } else {
+          // refind correct question's array
+          if(questionMask.status_code === CONFIG.QUESTION_STATUS_SENT) {
+             $scope.questionsSpeaker.splice($scope.questionsSpeaker.indexOf(questionMask), 1);
+          } else {
+            $scope.questions.splice($scope.questions.indexOf(questionMask), 1);
+          }
+      }
+
+
+      //$scope.questions = $scope.questions.filter(item => item !== questionMask);
     };
 
-
+    /**
+     * Display the question-merge's interface
+     * And select the main question for the merge
+     * @param  {Object} questionMerge this question will be conserved
+     */
     $scope.mergeQuestionToChairman = function(questionMerge) {
       /*
         var elementPos = $scope.questions.map(function(x) {return x.id; }).indexOf(questionMerge.id);
@@ -232,19 +236,23 @@ angular.module('chairmanApp')
 
     };
 
+    /**
+     * Cancel the merge questions and push the main merge question into the questions' array
+     */
     $scope.cancelMergeQuestion = function() {
       $scope.questions.push($scope.questionsMerge[0]);
       // todo : erase selected question
-      /*angular.forEach($scope.questions, function(value, key) {
-        $scope.questions[key].selected = false;
-      });*/
     };
 
+    /**
+     * Send to server the main question and a tab which contains all questions merged
+     * so attached at the main question]
+     */
     $scope.validateMergeQuestion = function() {
 
       var questionMerged = JSON.stringify({
-                mainQuestion: $scope.questionsMerge[0],
-                otherQuestions: $scope.questionsMerge.slice(1, $scope.questionsMerge.length)
+        mainQuestion: $scope.questionsMerge[0],
+        otherQuestions: $scope.questionsMerge.slice(1, $scope.questionsMerge.length)
       });
 
       question.sendMergedQuestion(questionMerged).then(function(data){
@@ -252,7 +260,7 @@ angular.module('chairmanApp')
           // delete question for chairman
           $scope.questions.push($scope.questionsMerge.shift()); // shift remove the first item of $scope.questionsMerge
           angular.forEach($scope.questionsMerge, function(value) {
-            $scope.maskQuestionToChairman(value);
+            $scope.maskQuestionToChairman(value, false);
           });
         }
       }, function(msg){
@@ -261,14 +269,18 @@ angular.module('chairmanApp')
 
     };
 
-
+    /**
+     * Change the main question to an other
+     * @param  {Object} question the new main question
+     * @param  {Object} test the old main question
+     */
     $scope.chooseAsMainMergeQuestion = function(question, test) {
       // delete question in questionsMerge if question was already selected
       $scope.questionsMerge.splice($scope.questionsMerge.indexOf(question), 1);
 
       // find indexOf question by question's id if nothing find return -1
       var elementPos = $scope.questions.map(function(x) {return x.id; }).indexOf(question.id);
-      console.log(test);
+
       var temp = test;//$scope.questionsMerge[0];
       $scope.questionsMerge[0] = $scope.questions[elementPos];
       temp.selected = true;
@@ -276,15 +288,27 @@ angular.module('chairmanApp')
 
     };
 
+    /**
+     * Add a question in the current merge of question
+     * @param {Object} questionAdd the new question merged
+     */
     $scope.addToMergeQuestion = function(questionAdd) {
       var elementPos = $scope.questionsMerge.map(function(x) {return x.id; }).indexOf(questionAdd.id);
       if(elementPos === -1) {
         $scope.questionsMerge.push(questionAdd);
       }
     };
-
+    /**
+     * Remove a question int the current merge of question
+     * @param  {Object} questionRemove the question which left the current merge
+     */
     $scope.removeToMergeQuestion = function(questionRemove) {
-      $scope.questionsMerge = $scope.questionsMerge.filter(item => item !== questionRemove);
+      $scope.questionsMerge = $scope.questionsMerge.filter(
+        function (question) {
+          return question !== questionRemove;
+        }
+      );
+
     };
 
   });

@@ -10,7 +10,7 @@
 angular.module('chairmanApp')
   .controller('SpeakerCtrl', function ($scope, CONFIG, $http, question,  note) {
   	
-    //initialisation
+    //initialize
     $scope.note = {};
     
   	$scope.sendQuestionSpeaker = function(questionSend) {
@@ -35,7 +35,7 @@ angular.module('chairmanApp')
   	};
 
   	$scope.sendNotificationTimeSpeaker = function() {
-      //var noteSend = "Attention au temps!!!";
+
       var noteSend = {
         content: "Attention au temps!!!"
       };

@@ -19,7 +19,7 @@ angular.module('screen')
     // $scope.mockQuestion.content = "Quel est la question ?";
     
     backendSocket.on('tweet', function(tweet){
-      console.log(tweet);
+      // console.log(tweet);
       tweet.isTweet = true;
       tweet.isFocused = false;
       tweet.receivedAt = Date.now();
@@ -44,7 +44,7 @@ angular.module('screen')
       // if it is an original tweet
       else
       {
-        console.log(tweet);
+        // console.log(tweet);
         // mise a jour de la view
         $scope.events.push(tweet);
         $scope.$apply();
@@ -55,13 +55,13 @@ angular.module('screen')
 
     // $scope.focustweet = function focustweet(id){
     backendSocket.on('focustweet', function(id){
-      console.log('focustweet');
+      // console.log('focustweet');
       // var cpt = 0;
       // var gnar = $scope.events.length-2;
       $scope.events.forEach(function(tweet) {
         if (tweet.id === id) { // || cpt === gnar) {
           tweet.isFocused = true;
-          console.log('THE FOCUS');
+          // console.log('THE FOCUS');
         } else {
           tweet.isFocused = false;
         }
@@ -73,20 +73,20 @@ angular.module('screen')
 
     // $scope.newquestion = function newquestion(id, name, content){
     backendSocket.on('question', function(newQuestion){
-      console.log('newquestion');
-      console.log(newQuestion);
+      // console.log('newquestion');
+      // console.log(newQuestion);
       $scope.question.id = newQuestion.id;
       $scope.question.name = ""; // question.public_id;  aller le chercher en bdd
       $scope.question.content = newQuestion.content;
-      $scope.question.num_slide = (newQuestion.num_slide === null) ? "" : "" + newQuestion.num_slide;
+      $scope.question.num_slide = (newQuestion.num_slide) ? "Slide n°" + newQuestion.num_slide : "";
       $scope.question.isDisplayed = true;
-      console.log($scope.question);
+      // console.log($scope.question);
     });
     // };
 
     // $scope.hidequestion = function hidequestion(){
     backendSocket.on('hidequestion', function(){
-      console.log('hidequestion');
+      // console.log('hidequestion');
       $scope.question.isDisplayed = false;
     });
     // };

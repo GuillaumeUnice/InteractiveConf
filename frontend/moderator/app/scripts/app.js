@@ -19,7 +19,8 @@ angular
     'ui.sortable',
     'btford.socket-io',
     'notifications',
-    'xeditable'
+    'xeditable',
+    'angularMoment'
   ])
   .constant('CONFIG', {
       baseUrl: 'http://localhost:3010',
@@ -54,71 +55,29 @@ angular
         controller: 'MainCtrl',
         controllerAs: 'main'
       })
-      .when('/auth', {
+      .when('/login', {
         templateUrl: 'views/auth.html',
-        controller: 'MainCtrl',
-        controllerAs: 'auth'
+        controller: 'LoginCtrl',
+        controllerAs: 'login'
       })
       .otherwise({
         redirectTo: '/'
-      });
-  });
-/*
-var fenixApp = angular.module('Moderator', ['ngRoute']);
-
-fenixApp.factory('mysocket', ['$rootScope', function ($rootScope) {
-    console.log("factory");
-    var socket = io.connect('http://localhost:3016');
-    console.log("socket created");
-
-    return {
-        on: function (eventName, callback) {
-            function wrapper() {
-                var args = arguments;
-                $rootScope.$apply(function () {
-                    callback.apply(socket, args);
-                });
-            }
-
-            socket.on(eventName, wrapper);
-
-            return function () {
-                socket.removeListener(eventName, wrapper);
-            };
-        },
-
-        emit: function (eventName, data, callback) {
-            socket.emit(eventName, data, function () {
-                var args = arguments;
-                $rootScope.$apply(function () {
-                    if(callback) {
-                        callback.apply(socket, args);
-                    }
-                });
-            });
-        }
-    };
-}]);
-
-fenixApp.config(['$routeProvider', function($routeProvider){
-  $routeProvider
-      //route for home page
-      .when('/', {
-          templateUrl : '/',
-          controller : 'mainController'
       })
-      .otherwise({
-        redirectTo: '/'
-      });
-}]);
+  })
+  .run(function ($rootScope, $location, $cookies, $log, $route, $window) {
+    $log.debug('In run function');
 
-fenixApp.controller('mainController', function($scope, mysocket) {
-    $scope.recievedTroughSocket = "still waiting for data...";
-    $scope.sendWithSocket = function(msg){
-        mysocket.emit("something", msg);
-    }
-    mysocket.on("greetings", function(data){
-        console.log("user data: " + JSON.stringify(data));
-        $scope.recievedTroughSocket = data.msg;
+    $rootScope.$on("$routeChangeStart", function (/*event, next, current*/) {
+      if ($cookies.getObject('user') === undefined && $location.path() !== '/login') {
+        $log.debug('not logged. redirection...');
+        $location.path("/login");
+      }
+      else if ($cookies.getObject('user') !== undefined && $location.path() === '/login') {
+        $log.debug('logged. redirection...');
+        $location.path("/");
+      }
+
+
     });
-});*/
+  });
+

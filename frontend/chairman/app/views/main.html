@@ -24,15 +24,15 @@
       </div>
     </div>
 
-<fieldset class="col-sm-6 col-md-6 col-lg-6">
-  <legend>Question public : </legend>
+<div class="col-sm-6 col-md-6 col-lg-6 old-fieldset">
+  <div class="legend text-center">Question public : </div>
 
   <div>
-    <div ng-click="order('created_at')" class="col-sm-6 col-md-6 col-lg-6 question-tab">
-      <i ng-show="predicate == 'created_at'" ng-class="{ 'glyphicon glyphicon-circle-arrow-down': reverse, 'glyphicon glyphicon-circle-arrow-up': !reverse }"></i> Date
+    <div ng-click="order('created_at')" class="col-sm-6 col-md-6 col-lg-6 question-tab question-tab-left">
+      <i ng-show="predicate == 'created_at'" ng-class="{ 'fa fa-arrow-down': reverse, 'fa fa-arrow-up': !reverse }"></i> Date
     </div>
-    <div ng-click="order('up')" class="col-sm-6 col-md-6 col-lg-6 question-tab" >
-      <i ng-show="predicate == 'up'" ng-class="{ 'glyphicon glyphicon-circle-arrow-down': reverse, 'glyphicon glyphicon-circle-arrow-up': !reverse }"></i> UpVote
+    <div ng-click="order('up_vote')" class="col-sm-6 col-md-6 col-lg-6 question-tab question-tab-right" >
+      <i ng-show="predicate == 'up_vote'" ng-class="{ 'fa fa-arrow-down': !reverse, 'fa fa-arrow-up': reverse }"></i> Upvote
     </div>
   </div>
   <br>
@@ -40,21 +40,20 @@
   <div class="question-container">
     <section ng-repeat="question in questions | orderBy:predicate:reverse">
         <ng-question question="question" answer-question-to-public="answerQuestionToPublic(question, answer)"
-         merge-question-to-chairman="mergeQuestionToChairman(question)" send-question-to-speaker="sendQuestionToSpeaker(question)" 
+         merge-question-to-chairman="mergeQuestionToChairman(question)" send-question-to-speaker="sendQuestionToSpeaker(question)"
          mask-question-to-chairman="maskQuestionToChairman(question)" >
-         
        </ng-question>
     </section>
   </div>
-</fieldset>
+</div>
 
 
-<fieldset class="col-sm-offset-1 col-md-offset-1 col-lg-offset-1  col-sm-5 col-md-5 col-lg-5">
-  <legend>Question fin de conférence : </legend>
+<div class="col-sm-offset-1 col-md-offset-1 col-lg-offset-1  col-sm-5 col-md-5 col-lg-5 old-fieldset no-border">
+  <div class="legend">Question fin de conférence : </div>
   <div ui-sortable="sortableOptions" ng-model="questions" class="question-left-container">
     <section ng-repeat="question in questionsSpeaker">
       <ng-question question="question" answer-question-to-public="answerQuestionToPublic(question, answer)"
          mask-question-to-chairman="maskQuestionToChairman(question)"></ng-question>
     </section>
   </div>
-</fieldset>
+</div>

@@ -27,6 +27,11 @@ angular
         controller: 'MainCtrl',
         controllerAs: 'main'
       })
+      .when('/', {
+        templateUrl: 'views/auth.html',
+        controller: 'MainCtrl',
+        controllerAs: 'auth'
+      })
       .otherwise({
         redirectTo: '/'
       });

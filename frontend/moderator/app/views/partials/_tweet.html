@@ -1,34 +1,43 @@
-<fieldset class="col-sm-6 col-md-6 col-lg-6">
-  <legend>Tweet public : </legend>
+<div class="col-sm-6 col-md-6 col-lg-6 old-fieldset no-border">
+  <p class="legend text-center">Tweet public :</p>
 
   <div class="question-container">
     <section ng-repeat="tweet in tweets">
 
-      <div class="question" >
-        <span class="glyphicon glyphicon-user"> </span> name : {{tweet.user.name}}
-        <br>
-        <br>
-        <div class="question-header glyphicon glyphicon-time animate-show">
-          il y'a ....  {{tweet.created_at}}
+      <div class="question">
+
+        <div class="pull-left block-pseudo">
+          <span class="fa fa-user"></span> <strong>{{tweet.user.name}}</strong>
+          <!-- TODO le nom du user  -->
         </div>
-        <br>
-        <label e-rows="4" e-cols="50" style="color : black ; text-transform: capitalize; text-shadow: 2px 2px #FFFFFF;">
+
+        <div class="question-header fa fa-clock-o pull-right animate-show">
+          {{tweet.created_at}}
+
+        </div>
+
+        <div class="clearfix"></div>
+
+        <div e-rows="4" e-cols="50">
           {{tweet.text}}
-        </label>
-        <br>
-        <br>
-        <span><i class="glyphicon glyphicon-tag"></i></span>
-
-        <div class="btn-group pull-right">
-          <i class="btn glyphicon glyphicon-send pull-right question-icon gi-1-8" ng-click="sendToScreen($index)"></i>
-          <i class="btn glyphicon glyphicon-trash pull-right question-icon gi-1-8" ng-click="removeTweet($index)"></i>
         </div>
-      </div>
 
+
+        <div class="bottom-question">
+          <div class="btn-group pull-right">
+            <button class="btn btn-default pull-right question-icon"
+                    ng-click="sendToScreen($index)"><i class="fa fa-paper-plane"></i></button>
+            <button class="btn btn-default pull-right question-icon"
+                    ng-click="removeTweet($index)"><i class="fa fa-trash"></i></button>
+          </div>
+          <div class="clearfix"></div>
+        </div>
+        <div class="clearfix"></div>
+      </div>
 
 
     </section>
 
-
   </div>
-</fieldset>
+</div>
+

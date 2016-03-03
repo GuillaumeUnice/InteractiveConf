@@ -5,71 +5,34 @@
   <title>Public</title>
   <meta name="description" content="">
   <meta name="viewport" content="width=device-width">
+  <link rel="icon" href="favicon.ico" />
   <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
   <!-- build:css(.) styles/vendor.css -->
   <!-- bower:css -->
   <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css" />
-  <link rel="stylesheet" href="bower_components/font-awesome/css/font-awesome.css" />
+  <link rel="stylesheet" href="bower_components/ngToast/dist/ngToast.css" />
   <!-- endbower -->
   <!-- endbuild -->
   <!-- build:css(.tmp) styles/main.css -->
   <link rel="stylesheet" href="styles/main.css">
   <!-- endbuild -->
-  <link rel="stylesheet" href="bower_components/ngnotification/notification.css"/>
-
-  <!-- RESET style button perso-->
-  <style>
-    .btn-perso {
-      background-color: #007299;
-      color:#F8F8F8;
-      height: 60px;
-      background: -moz-linear-gradient(top, #267c99 50%, #007299 50%); /* FF3.6+ */
-      background: -webkit-gradient(linear, left top, left bottom, color-stop(50%,#267c99), color-stop(50%,#007299)); /* Chrome,Safari4+ */
-      background: -webkit-linear-gradient(top, #267c99 50%,#007299 50%); /* Chrome10+,Safari5.1+ */
-      background: -o-linear-gradient(top, #267c99 50%,#007299 50%); /* Opera 11.10+ */
-      background: -ms-linear-gradient(top, #267c99 50%,#007299 50%); /* IE10+ */
-      background: linear-gradient(to bottom, #267c99 50%,#007299 50%); /* W3C */
-      filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#267c99', endColorstr='#007299',GradientType=0 ); /* IE6-9 */
-    }
-    .btn-perso:active, .btn-perso:focus {
-      background-color: #007299;
-      background: -moz-linear-gradient(top, #267c99 50%, #007299 50%); /* FF3.6+ */
-      background: -webkit-gradient(linear, left top, left bottom, color-stop(50%,#267c99), color-stop(50%,#007299)); /* Chrome,Safari4+ */
-      background: -webkit-linear-gradient(top, #267c99 50%,#007299 50%); /* Chrome10+,Safari5.1+ */
-      background: -o-linear-gradient(top, #267c99 50%,#007299 50%); /* Opera 11.10+ */
-      background: -ms-linear-gradient(top, #267c99 50%,#007299 50%); /* IE10+ */
-      background: linear-gradient(to bottom, #267c99 50%,#007299 50%); /* W3C */
-      filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#267c99', endColorstr='#007299',GradientType=0 ); /* IE6-9 */
-    }
-    .btn-perso:hover {
-      color:#5dcad5;
-      border-right: 1px solid #CCC;
-      border-left: 1px solid #CCC;
-      border-top: 1px solid #CCC;
-    }
-    .btn-perso.active.focus, .btn-perso:focus, .btn-perso.active:hover, .btn-perso:active.focus, .btn-perso:active:focus, .btn-perso:active:hover, .open>.dropdown-toggle.btn-perso.focus, .open>.dropdown-toggle.btn-perso:focus, .open>.dropdown-toggle.btn-perso:hover {
-      color: #004f6a;
-      border-right: 1px solid #CCC;
-      border-left: 1px solid #CCC;
-      border-top: 1px solid #CCC;
-    }
-  </style>
+  <!--<link rel="stylesheet" href="bower_components/ngnotification/notification.css"/>-->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
 </head>
 
 
-<body ng-app="Public">
+<body ng-app="Public" class="noise">
   <!--[if lte IE 8]>
   <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade
     your browser</a> to improve your experience.</p>
   <![endif]-->
 
 
-
   <!-- ==============================
              NG-NOTIFICATION
        ============================= -->
   <!-- ngNotification -->
-  <div notifications="top right"></div>
+  <!--<div notifications="top right"></div>-->
 
   <!-- ==============================
                  NG-VIEW
@@ -78,7 +41,9 @@
   <div ng-view=""></div>
   <!--</div>-->
 
-  <footer>
+  <toast class="ng-toast--bottom"></toast>
+
+  <footer ng-if="isLogged == true">
     <div class="row">
       <div style="padding:0;margin:0;clear:both" class="col-xs-12 navbar-inverse navbar-fixed-bottom">
         <a title="All questions" href="#/">
@@ -93,7 +58,7 @@
             <span class="btn-icon"><i class="fa fa-star"></i></span>
           </button>
         </a>
-        <a title="Redact a question" href="#/sendquestion">
+        <a title="Redact a question" href="#/redact">
           <button style="border-radius:0;"
                   class="btn btn-default btn-lg btn-perso col-xs-4 text-center">
             <span class="btn-icon"><i class="fa fa-pencil"></i></span>
@@ -122,8 +87,7 @@
   <script src="bower_components/jquery/dist/jquery.js"></script>
   <script src="bower_components/angular/angular.js"></script>
   <script src="bower_components/bootstrap/dist/js/bootstrap.js"></script>
-  <script src="bower_components/bootstrap-sass-official/assets/javascripts/bootstrap.js"></script>
-  <script src="bower_components/angular-animate/angular-animate.js"></script>
+  <script src="bower_components/bootstrap-sass/assets/javascripts/bootstrap.js"></script>
   <script src="bower_components/angular-cookies/angular-cookies.js"></script>
   <script src="bower_components/angular-resource/angular-resource.js"></script>
   <script src="bower_components/angular-route/angular-route.js"></script>
@@ -132,36 +96,41 @@
   <script src="bower_components/jquery-ui/jquery-ui.js"></script>
   <script src="bower_components/angular-ui-sortable/sortable.js"></script>
   <script src="bower_components/angular-socket-io/socket.js"></script>
-  <script src="bower_components/ngnotification/notification.js"></script>
   <script src="bower_components/moment/moment.js"></script>
   <script src="bower_components/angular-moment/angular-moment.js"></script>
+  <script src="bower_components/angular-animate/angular-animate.js"></script>
+  <script src="bower_components/ngToast/dist/ngToast.js"></script>
   <!-- endbower -->
   <!-- endbuild -->
-  <script src="bower_components/moment/locale/fr.js"></script>
 
   <!-- build:js({.tmp,app}) scripts/scripts.js -->
+  <!--Autre-->
+  <script src="scripts/lib/socket.io.js"></script>
+  <script src="scripts/lib/fr.js"></script>
+
   <script src="scripts/app.js"></script>
   <!-- Controllers -->
-  <script src="scripts/controllers/questionsC.js"></script>
-  <script src="scripts/controllers/sendquestionC.js"></script>
-  <script src="scripts/controllers/favoritesC.js"></script>
+  <script src="scripts/controllers/questionsCtrl.js"></script>
+  <script src="scripts/controllers/redactCtrl.js"></script>
+  <script src="scripts/controllers/loginCtrl.js"></script>
+  <script src="scripts/controllers/favoritesCtrl.js"></script>
+  <script src="scripts/controllers/votesCtrl.js"></script>
   <!-- Directives -->
-  <script src="scripts/directives/questionsD.js"></script>
-  <script src="scripts/directives/favoritesD.js"></script>
-  <script src="scripts/directives/headerInfoD.js"></script>
-  <script src="scripts/directives/filterD.js"></script>
+  <script src="scripts/directives/ngQuestions.js"></script>
+  <script src="scripts/directives/ngFavorites.js"></script>
+  <script src="scripts/directives/ngHeaderInfo.js"></script>
+  <script src="scripts/directives/ngFilter.js"></script>
   <!-- Services -->
-  <script src="scripts/services/questionsS.js"></script>
-  <script src="scripts/services/publicS.js"></script>
-  <script src="scripts/services/responsesS.js"></script>
-  <script src="scripts/services/favoritesS.js"></script>
+  <script src="scripts/services/userService.js"></script>
+  <script src="scripts/services/questionsService.js"></script>
+  <script src="scripts/services/favoritesService.js"></script>
   <!-- Socket -->
   <script src="scripts/services/socketPublic.js"></script>
-  <script src="/bower_components/socket.io-client/socket.io.js"></script>
-  <script src="/bower_components/angular-socket-io/socket.js"></script>
   <!--Notifications-->
-  <script src="../bower_components/ngnotification/notification.js"></script>
   <script src="scripts/services/vote.js"></script>
+  <script src="scripts/services/notificationService.js"></script>
+  <!--<script src="../bower_components/moment/locale/fr.js"></script>-->
+  <!--<script src="/bower_components/socket.io-client/socket.io.js"></script>-->
   <!-- endbuild -->
 </body>
 </html>

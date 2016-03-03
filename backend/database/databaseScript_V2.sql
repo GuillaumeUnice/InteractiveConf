@@ -47,19 +47,11 @@ CREATE TABLE IF NOT EXISTS `favorites` (
 CREATE TABLE IF NOT EXISTS `public` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `hash_cookie` text NOT NULL,
-  `ip` varchar(255) NOT NULL,
   `nom` varchar(255) DEFAULT NULL,
   `prenom` varchar(255) DEFAULT NULL,
-  `socket_id` varchar(255) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=2 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
---
--- Contenu de la table `public`
---
-
-INSERT INTO `public` (`id`, `hash_cookie`, `ip`, `nom`, `prenom`, `socket_id`) VALUES
-(1, 'cookie', '111.111.111.111', 'Dusse', 'Jean-Claude', '456781G2EVB723DV2');
 
 -- --------------------------------------------------------
 
@@ -73,9 +65,9 @@ CREATE TABLE IF NOT EXISTS `questions` (
   `status_code` int(11) NOT NULL,
   `public_id` int(11) DEFAULT NULL,
   `num_slide` int(11) DEFAULT NULL,
-  `up_vote` int(11) NOT NULL DEFAULT '0',
   `question_id` int(11) DEFAULT NULL,
-  `created_at` bigint(20) NOT NULL,
+  `up_vote` int(11) NOT NULL DEFAULT '0',
+  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`),
   KEY `public_id` (`public_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;

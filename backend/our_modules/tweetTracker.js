@@ -33,7 +33,7 @@ var client = new Twitter(configTwitter);
 var startTrack = function() {
 
     // var params = {track: Keywords};
-    var params = {track: '#love'};
+    var params = {track: '#simpleconftest'};
 
     client.stream('statuses/filter', params, function(stream) {
         stream.on('data', function(tweet) {

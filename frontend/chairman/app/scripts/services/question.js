@@ -77,7 +77,7 @@ angular.module('chairmanApp')
       },
       loadQuestion: function () {
         var deferred = $q.defer();
-        $http.get(CONFIG.baseUrlQuestion)
+        $http.get(CONFIG.baseUrlQuestion + '/infoC/')
           .success(function(data) {
             //notification.writeNotification(data);
             deferred.resolve(data);

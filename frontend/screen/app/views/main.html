@@ -8,14 +8,20 @@
 	</div>
  -->	<!--h2 class="">Events</h2>
 	<br/-->
-	<div class="events">
+	<div class="top-panel">
+		<div>URL : <strong>http://sparks-vm19.i3s.unice.fr/conf/public/</strong></div>
+		<div>Twitter : <strong>#simpleconftest</strong></div>
+	</div>
+	<div class="container-fluid events">
 		<div class="row event" ng-repeat="event in events | orderBy:'-receivedAt'" ng-class="{tweet: event.isTweet, focustweet: event.isFocused}">
 			<div class="col-xs-12">
-				<div class="row event-content">
-					<div class="col-xs-1 profile-pic"><img src="{{ event.user.profile_image_url }}" alt="{{ event.user.name }}"></div>
-					<div class="col-xs-11">
-						<div><strong>{{ event.user.name }}</strong></div>
-						<div>{{ event.text }}</div>
+				<div class="row event-container">
+					<div class="event-content">
+						<div class="col-xs-1 profile-pic"><img ng-src="{{ event.user.profile_image_url }}" alt="{{ event.user.name }}"></div>
+						<div class="col-xs-11">
+							<div><strong>{{ event.user.name }}</strong></div>
+							<div>{{ event.text }}</div>
+						</div>
 					</div>
 				</div>
 				<!-- For pictures in tweets

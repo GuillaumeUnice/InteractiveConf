@@ -1,36 +1,43 @@
-<fieldset class="col-sm-6 col-md-6 col-lg-6">
-  <legend>Question public : </legend>
+<div class="col-sm-6 col-md-6 col-lg-6 old-fieldset">
+  <p class="legend text-center">Question public :</p>
 
   <div class="question-container">
     <section ng-repeat="event in events.questions | filter:{status_code:0}">
 
-      <div class="question" >
-        <span class="glyphicon glyphicon-user"> </span>  name : {{public_name}}
-        <br>
-        <div class="question-header glyphicon glyphicon-time">
-          il y'a {{created_at}}
+      <div class="question">
 
+        <div class="pull-left block-pseudo">
+          <span class="fa fa-user"></span> <strong>{{event.prenom}}  {{event.nom}}</strong>
         </div>
 
-        <br>
-        <br>
-        <label editable-textarea="event.content" e-rows="4" e-cols="50" ng-model="event.content"  style="color : black ; text-transform: capitalize; text-shadow: 2px 2px #FFFFFF;">
+        <div class="question-header fa fa-clock-o pull-right">
+          <span am-time-ago="event.created_at | amFromUnix"></span>
+        </div>
+
+        <div class="clearfix"></div>
+
+        <span class="pull-left" editable-textarea="event.content" e-rows="4" e-cols="30" ng-model="event.content" e-form="textBtnForm">
           {{event.content}}
-        </label>
-        <br>
-        <br>
-        <span><i class="glyphicon glyphicon-tag"></i>Slide #{{event.num_slide}} </span>
+        </span>
+        <button class="btn btn-default pull-right" style="margin-right: 15px;" ng-click="textBtnForm.$show()" ng-hide="textBtnForm.$visible"><i class="fa fa-pencil"></i></button>
 
-        <div class="btn-group pull-right">
-          <i class="btn glyphicon glyphicon-send pull-right question-icon gi-1-8" ng-click="validateQuestion($index)"></i>
-          <i class="btn glyphicon glyphicon-trash pull-right question-icon gi-1-8" ng-click="removeQuestion($index)"></i>
+        <div class="clearfix"></div>
+
+        <div class="bottom-question">
+          <div class="pull-left" ng-if="event.num_slide != undefined"><i class="fa fa-tag"></i> Slide {{event.num_slide}}</div>
+          <div class="btn-group pull-right">
+            <button class="btn btn-default pull-right question-icon"
+                    ng-click="validateQuestion($index)"><i class="fa fa-paper-plane"></i></button>
+            <button class="btn btn-default pull-right question-icon"
+                    ng-click="removeQuestion($index)"><i class="fa fa-trash"></i></button>
+          </div>
+          <div class="clearfix"></div>
         </div>
+        <div class="clearfix"></div>
       </div>
 
-
-
     </section>
-
-
   </div>
-</fieldset>
+</div>
+
+

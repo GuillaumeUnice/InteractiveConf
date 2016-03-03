@@ -1,0 +1,30 @@
+<div class="container" style="margin-top:30px;">
+  <div class="row">
+
+    <div id="formulaire" class="login">
+
+      <h2><i class="fa fa-user"></i> Se connecter </h2>
+
+      <br/>
+      <p>Veuillez renseigner votre nom et prénom pour accéder à l'application</p>
+      <br/>
+
+      <form role="form">
+
+        <div class="form-group">
+          <label for="inputNickname">Prenom</label>
+          <input type="text" class="form-control" ng-model="loginPrenom" placeholder="Votre prenom" id="inputNickname"/>
+        </div>
+
+        <div class="form-group">
+          <label for="inputName">Nom</label>
+          <input type="text" class="form-control" ng-model="loginNom" placeholder="Votre nom" id="inputName">
+        </div>
+
+        <button type="submit" class="btn btn btn-primary" ng-click="signUp()">connecter</button>
+      </form>
+
+    </div>
+
+  </div>
+</div>

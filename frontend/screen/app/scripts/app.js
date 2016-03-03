@@ -20,17 +20,17 @@ angular
     'btford.socket-io'
   ])
   .constant('CONFIG', {
-    // baseUrl: 'http://localhost:3010',
-    // baseUrlApi: 'http://localhost:3010/api',
-    // baseUrlQuestion: 'http://localhost:3010/api/question',
-    baseUrl: 'http://sparks-vm19.i3s.unice.fr:80/pfe',
-    baseUrlApi: 'http://sparks-vm19.i3s.unice.fr:80/pfe/api',
-    baseUrlQuestion: 'http://sparks-vm19.i3s.unice.fr:80/pfe/api/question',
+    baseUrl: 'http://localhost:3010',
+    baseUrlApi: 'http://localhost:3010/api',
+    baseUrlQuestion: 'http://localhost:3010/api/question',
+    // baseUrl: 'http://sparks-vm19.i3s.unice.fr:80/pfe',
+    // baseUrlApi: 'http://sparks-vm19.i3s.unice.fr:80/pfe/api',
+    // baseUrlQuestion: 'http://sparks-vm19.i3s.unice.fr:80/pfe/api/question',
     
-    // ioBaseUrl: 'http://localhost:3010',
-    // ioPath: '',
-    ioBaseUrl: 'http://sparks-vm19.i3s.unice.fr:80',
-    ioPath: '/pfe',
+    ioBaseUrl: 'http://localhost:3010',
+    ioPath: '',
+    // ioBaseUrl: 'http://sparks-vm19.i3s.unice.fr:80',
+    // ioPath: '/pfe',
 
     JSON_STATUS_SUCCESS: 1,
     JSON_STATUS_WARNING: -1,

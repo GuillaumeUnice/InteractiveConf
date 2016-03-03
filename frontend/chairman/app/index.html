@@ -5,6 +5,7 @@
     <title>Chairman Application Conference Interactive</title>
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width">
+    <link rel="icon" href="favicon.ico" />
     <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
     <!-- build:css(.) styles/vendor.css -->
     <!-- bower:css -->
@@ -12,10 +13,12 @@
     <link rel="stylesheet" href="bower_components/font-awesome/css/font-awesome.css" />
     <!-- endbower -->
     <!-- endbuild -->
+    
     <!-- build:css(.tmp) styles/main.css -->
     <link rel="stylesheet" href="styles/main.css">
+    <!-- <link rel="stylesheet" href="lib/notification.css" /> -->
     <!-- endbuild -->
-        <link rel="stylesheet" href="bower_components/ngnotification/notification.css" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
   </head>
   <body ng-app="chairmanApp" ng-controller="LoginCtrl as login">
     <!--[if lte IE 8]>
@@ -153,24 +156,29 @@
     <script src="bower_components/angular-touch/angular-touch.js"></script>
     <script src="bower_components/jquery-ui/jquery-ui.js"></script>
     <script src="bower_components/angular-ui-sortable/sortable.js"></script>
+    <script src="bower_components/ngnotification/notification.js"></script>
+    <script src="bower_components/angular-socket-io/socket.js"></script>
     <script src="bower_components/moment/moment.js"></script>
     <script src="bower_components/angular-moment/angular-moment.js"></script>
     <!-- endbower -->
     <!-- endbuild -->
-    <script src="bower_components/moment/locale/fr.js"></script>
-    <script src="bower_components/ngnotification/notification.js"></script>
-    <script src="bower_components/angular-socket-io/socket.js"></script>
-    <script src="bower_components/socket.io-client/socket.io.js"></script>
-    <script src="scripts/lib/jquery.ui.touch-punch.min.js"></script>
+
     <!-- build:js({.tmp,app}) scripts/scripts.js -->
+    <script src="lib/fr.js"></script>
+    <script src="lib/socket.io.js"></script>
+    <script src="scripts/lib/jquery.ui.touch-punch.min.js"></script>
+    
     <script src="scripts/app.js"></script>
+
     <script src="scripts/controllers/main.js"></script>
+    <script src="scripts/controllers/speaker.js"></script>
+    <script src="scripts/controllers/login.js"></script>
+
     <script src="scripts/directives/question.js"></script>
     <script src="scripts/directives/ngtopmenutabs.js"></script>
     <script src="scripts/directives/ngtopmenutab.js"></script>
-    <script src="scripts/controllers/speaker.js"></script>
     <script src="scripts/directives/ngbuttontime.js"></script>
-    <script src="scripts/controllers/login.js"></script>
+
     <script src="scripts/services/socketquestion.js"></script>
     <script src="scripts/services/auth.js"></script>
     <script src="scripts/services/notification.js"></script>

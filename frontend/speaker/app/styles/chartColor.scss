@@ -1,13 +1,34 @@
+@charset "UTF-8";
+
+//basiques
 $gray-light: #F8F8F8;
 $gray-darker-border: #DDD;
-/* $gray-darker-text: #888; */
-$gray-darker-text: #444;
+$gray-border-answer: #d1d1d1;
+$gray-darker-border: #bababa;
+
+//ombrage
+$gray-shadow: #bfbfbf;
+$gray-shadow-darker: #a3a3a3;
+$green-shadow-light: #dfffd3;
+$red-shadow-light: #ffe1fc;
+
+//surcouche bouton
+$gray-btn-border: #ADADAD;
+$gray-btn-background: #e6e6e6;
+
+//text
+$gray-darker-text: #888;
+$gray-text-question-content: #595959;
+$blue-text: #3b7dac;
+$blue-text-hover: #5dcad5;
+
+//la reponse
+$green-light: #f0fbf2;
+$green-darker: #c3ddc0;
+
+//deplier une question
+$yellow-light: #fff8da;
+$yellow-darker: #eddb37;
+
+// speaker
 $gray-dark-text: #222;
-
-$blue-text: #47a4ed;
-
-$red-light: #FFDBD6;
-$red-darker: #F57362;
-
-$green-light: #DCF7D7;
-$green-darker: #9CDE90;

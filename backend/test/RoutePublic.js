@@ -11,7 +11,7 @@ var winston = require('winston');
 
 describe('Routing test', function () {
 
-    var server = request.agent("http://localhost:3000/api/public");
+    var server = request.agent("http://localhost:3010/api/public");
 
     var id_created = null;
 
@@ -72,6 +72,21 @@ describe('Routing test', function () {
                 });
         });
 
+        // TEST GET PAR ID NULL
+        it('should not correctly get a user', function (done) {
+            server
+                .get("/" + 888)
+                .expect('Content-type', 'application/json; charset=utf-8')
+                .expect(200) //Status code success
+                .end(function (err, res) {
+                    if (err) {
+                        throw err;
+                    }
+                    res.body.length.should.equal(0);
+                    done();
+                });
+        });
+
         // TEST DELETE
         it('should correctly delete a user', function (done) {
             server
@@ -83,6 +98,39 @@ describe('Routing test', function () {
                         throw err;
                     }
                     res.body.should.not.have.property('id');
+                    done();
+                });
+        });
+
+        // TEST DELETE NULL
+        it('should not correctly delete a user', function (done) {
+            server
+                .delete("/private/" + 888)
+                .expect('Content-type', 'application/json; charset=utf-8')
+                .expect(202) //Status code success
+                .end(function (err, res) {
+                    if (err) {
+                        throw err;
+                    }
+                    res.body.insertId.should.equal(0);
+                    done();
+                });
+        });
+
+        // POST D'UN NEW USER POUR QUESTION
+        it('should correctly post another user', function (done) {
+            server
+                .post('/')
+                .send(publicBody)
+                .expect('Content-type', 'application/json; charset=utf-8')
+                .expect(201) //Status code created
+                .end(function (err, res) {
+                    if (err) {
+                        throw err;
+                    }
+                    res.body.should.have.property('insertId');
+                    // recupere l'id du post pour tester le get par id
+                    res.body.insertId.should.equal(2);
                     done();
                 });
         });

@@ -1,31 +1,43 @@
 <!--BARRE INFO-->
-<ng-info changetitle="Redact"></ng-info>
-
+<ng-info changetitle="Rédiger"></ng-info>
 
 <div class="container">
   <div id="formulaire">
-      <h2>Avez-vous une question ? N'hésitez pas!</h2><br/>
+    <h2>Avez-vous une question ? N'hésitez pas!</h2><br/>
 
-      <div class="form-group clearfix" ng-form="questionForm">
+    <div class="form-group clearfix" ng-form="questionForm">
 
-          <!--TODO message erreur si pas assez de caractere-->
+      <!--TODO message erreur si pas assez de caractere-->
 
-          <!--contenu de la question-->
-          <label for="content">Votre question :</label> <em>{{200 - textcontent.length}} caractères restants.</em>
-          <textarea class="form-control" rows="5" id="content" ng-model="textcontent" minlength="15" maxlength="200" ng-trim="false" required></textarea><br/>
+      <!--contenu de la question-->
+      <label for="content">Votre question :</label> <em><span ng-if="textcontent.length > 15">{{200 - textcontent.length}} caractères restants</span>
+      <span style="color:darkred" ng-hide="textcontent.length > 15">15 caractères minimum</span></em>
+      <textarea class="form-control" rows="5" id="content" ng-model="textcontent" minlength="15" maxlength="200"
+                ng-trim="false" required></textarea>
+      <br/>
 
-          <!--numero de slide -->
-          <label for="numSlide">Numero de slide :</label> <em>optionnel</em>
-          <input type="number" min="1" max="150" class="form-control" id="numSlide" ng-model="numslide"><br/><br/>
+      <!--numero de slide -->
+      <!--<label for="numSlide">Numero de slide :</label> <em>optionnel</em>-->
+      <!--<input type="number" min="1" class="form-control" id="numSlide" ng-model="numslide"><br/><br/>-->
 
-          <!--envoi-->
-          <button class="btn btn-primary btn-lg btn-block"
-                  pattern="[0-9]*"
-                  ng-disabled="questionForm.$invalid || !questionForm.$valid || numslide < 1 || numslide > 150"
-                  ng-click="sendQuestionToMod()">
-              Envoyer
-          </button>
-
+      <label for="numSlide">Numero de slide :</label> <em>optionnel</em><br/>
+      <div class="input-group">
+        <div class="input-group-addon" style="cursor:pointer;" ng-click="numslide = ''">
+          <i style="color:red;" class="fa fa-times"></i>
+        </div>
+        <input type="number" min="1" class="form-control" id="numSlide" ng-model="numslide">
       </div>
+      <br/>
+
+      <!--envoi-->
+      <button class="btn btn-primary btn-lg btn-block"
+              ng-disabled="questionForm.$invalid || !questionForm.$valid"
+              ng-click="sendQuestionToMod()">
+        Envoyer
+      </button>
+
+      <!--pattern="[0-9]*"-->
+
+    </div>
   </div>
 </div>

@@ -51,7 +51,7 @@ describe('Controller: SpeakerCtrl', function () {
       expect(scope.note).to.be.empty;
     })
 
-    it("should remove variable scope.note if success", function() {   
+    /*it("should remove variable scope.note if success", function() {   
       //initialization
       scope.note = 'test';
       expect(scope.note).to.be.equal('test');
@@ -67,7 +67,7 @@ describe('Controller: SpeakerCtrl', function () {
       // execute function
       scope.$apply()
       expect(scope.note).to.be.empty;
-    })
+    })*/
   }); // end function: sendNoteSpeaker
 
 });

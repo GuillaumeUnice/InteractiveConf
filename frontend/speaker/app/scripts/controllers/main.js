@@ -8,7 +8,7 @@
  * Controller of the speaker
  */
 angular.module('speaker')
-.controller('MainCtrl', function (CONFIG, $scope, $http, $interval, backendSocket) 
+.controller('MainCtrl', function (CONFIG, $scope, $http, $interval, $q, backendSocket) 
 {
 
 
@@ -49,6 +49,7 @@ angular.module('speaker')
   $scope.question = {};
   $scope.question.isDisplayed = false;
 
+/* // no more progress bar
   var pBar = {};
   pBar.interval = null;
   pBar.initVal = 0;
@@ -61,9 +62,10 @@ angular.module('speaker')
   $scope.progressBarVal = pBar.initVal;
   $scope.progressBarMaxVal = pBar.maxVal;
   $scope.progressBarDisplay = false;
-  
+*/
 
   backendSocket.on('question', function (question){
+    // console.log(question);
     $scope.addQuestionToQueue(question);
   });
 
@@ -88,9 +90,11 @@ angular.module('speaker')
     // console.log('manage');
     $scope.question.isDisplayed = false;
 
+/* // no more progress bar
     $interval.cancel(pBar.interval);
     $scope.progressBarVal = pBar.initVal;
     pBar.val = pBar.initVal;
+*/
 
     if ($scope.questionQueue.length > 0) {
 
@@ -108,6 +112,7 @@ angular.module('speaker')
 
       $scope.questionQueue.splice(index, 1);
 
+/* // no more progress bar
       // si plus de 5 questions
       if ($scope.questionQueue.length > 3) {
   
@@ -133,7 +138,7 @@ angular.module('speaker')
       else {
         $scope.progressBarDisplay = false;
       }
-
+*/
     }
 
   };
@@ -142,13 +147,13 @@ angular.module('speaker')
   $scope.sendQuestionToScreen = function (){
 
     var questionToSend = $scope.question;
-    questionToSend.receivedAt = undefined;
-    questionToSend.slide = undefined;
-    questionToSend.isDisplayed = undefined;
+    delete questionToSend.receivedAt;
+    delete questionToSend.slide;
+    delete questionToSend.isDisplayed;
 
-    $http.post(CONFIG.baseUrlQuestion + '/sendToScreen', questionToSend) // TODO config
+    $http.post(CONFIG.baseUrlQuestion + '/sendToScreen', questionToSend)
       .success(function(data) {
-        console.log('succes to screen ' + data);
+        // console.log('succes to screen ' + data);
         $scope.manageQuestionQueue();
       }).error(function(data) {
         console.log('fail' + data);
@@ -157,14 +162,14 @@ angular.module('speaker')
 
   $scope.sendQuestionToAssistant = function (){
     var questionToSend = $scope.question;
-    questionToSend.receivedAt = undefined;
-    questionToSend.slide = undefined;
-    questionToSend.isDisplayed = undefined;
-    console.log(questionToSend);
+    delete questionToSend.receivedAt;
+    delete questionToSend.slide;
+    delete questionToSend.isDisplayed;
+    // console.log(questionToSend);
 
-    $http.post(CONFIG.baseUrlQuestion + '/sendToChairmanEndQuestion', questionToSend) // TODO config
+    $http.post(CONFIG.baseUrlQuestion + '/sendToChairmanEndQuestion', questionToSend)
       .success(function(data) {
-        console.log('succes to assistant ' + data);
+        // console.log('succes to assistant ' + data);
         $scope.manageQuestionQueue();
       }).error(function(data) {
         console.log('fail' + data);
@@ -187,5 +192,81 @@ angular.module('speaker')
     $scope.note = note.content;
   };
 
+  /* END QUESTION */
+
+  $scope.endQuestionMode = false;
+  $scope.endQuestionCpt = 0;
+  $scope.endQuestions = {};
+  
+
+  $scope.toggleEndQuestionMode = function (){
+    console.log('newEndQuestion');
+    $scope.endQuestionMode = !$scope.endQuestionMode;
+    if ($scope.endQuestionMode) {
+      $scope.getEndQuestions().then(function(questions){
+        for (var i = 0; i < questions.length; i++) {
+          $scope.newEndQuestion(questions[i]);
+        }
+        console.log($scope.endQuestions);
+      }, function(err){
+        console.log('erreur promesses : ' + err);
+      });
+    }
+  };
+
+
+
+  backendSocket.on('endQuestion', function (newQuestion){
+    $scope.newEndQuestion(newQuestion);
+  });
+
+
+  $scope.newEndQuestion = function (newQuestion){
+    console.log('newEndQuestion');
+    if ($scope.endQuestions[newQuestion.id] === undefined) {
+      $scope.endQuestionCpt++;
+    }
+    $scope.endQuestions[newQuestion.id] = newQuestion;
+  };
+
+  $scope.removeEndQuestion = function (questionId){
+    console.log('removeEndQuestion');
+    console.log(questionId);
+    if ($scope.endQuestions[questionId] !== undefined) {
+      $scope.endQuestionCpt--;
+    }
+    delete $scope.endQuestions[questionId];
+    // $scope.endQuestionEmpty = true;
+  };
+
+  $scope.getEndQuestions = function (){
+    console.log('getEndQuestions');
+    var deferred = $q.defer();
+    $http.get(CONFIG.baseUrlQuestion + '/status/' + CONFIG.QUESTION_STATUS_SENT)
+      .success(function(data) {
+        console.log(data);
+        deferred.resolve(data);
+      }).error(function(data) {
+        console.log('fail' + data);
+        deferred.reject(false);
+      });
+      return deferred.promise;
+  };
+
+  $scope.sendEndQuestionToScreen = function (question){
+
+    var questionToSend = question;
+    questionToSend.num_slide = questionToSend.numSlide;
+    // questionToSend['num_slide'] = questionToSend.numSlide;
+
+    $http.post(CONFIG.baseUrlQuestion + '/sendToScreen', questionToSend)
+      .success(function(data) {
+        console.log('succes to screen ' + data);
+        $scope.removeEndQuestion(questionToSend.id);
+        console.log('succes to screen ' + data);
+      }).error(function(data) {
+        console.log('fail' + data);
+      });
+  };
 
 });

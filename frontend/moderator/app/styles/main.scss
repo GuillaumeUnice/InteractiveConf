@@ -1,6 +1,10 @@
 @charset "UTF-8";
+@import "notification.scss";
+@import "header-info.scss";
 @import "color.scss";
-@import "question.scss";
+@import "question-tweet";
+@import "login";
+
 @mixin blur($px: 0) {
     -webkit-filter: blur(#{$px}px) !important;
     -ms-filter: blur(#{$px}px) !important;
@@ -47,7 +51,7 @@
 
 $icon-font-path: "../bower_components/bootstrap-sass-official/assets/fonts/bootstrap/";
 // bower:scss
-@import "bootstrap-sass-official/assets/stylesheets/_bootstrap.scss";
+@import "bootstrap-sass/assets/stylesheets/_bootstrap.scss";
 // endbower
 
 /* overwrite bootstrap */
@@ -71,8 +75,7 @@ $icon-font-path: "../bower_components/bootstrap-sass-official/assets/fonts/boots
   margin : 20px;
 }
 body {
-  color: $colorText1;
-  background-color : $color1;
+  background: url("/images/bg.png") repeat;
 }
 
 textarea, input {
@@ -84,21 +87,11 @@ button {
   cursor: pointer !important;
 }
 textarea {
-  min-height: 200px;
-  min-width: 50%;
   resize: none;
 }
 
 label, button {
   cursor: pointer;
-}
-
-fieldset {
-  border: 3px solid gray;
-  width: 95%;
-  padding-bottom: 10px;
-  height: 85vh;
-  padding-bottom: 10px;
 }
 
 legend {
@@ -125,7 +118,7 @@ legend {
 }
 
 .question-tab {
-  font-size : 1.5em;
+  font-size : 13px;
   text-align: center;
   padding : 10px;
 }
@@ -137,7 +130,6 @@ legend {
   width: 100%;
   height: 100%;
   z-index: 50;
-  background-color: rgba(0,0,0,0.8);
 }
 
 .overlay-container {

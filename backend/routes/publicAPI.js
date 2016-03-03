@@ -3,6 +3,13 @@ var router = express.Router();
 var sql = require('../our_modules/sql');
 var constants = require('../our_modules/constants');
 
+var publicRepositoryModule = require('../our_modules/repositories/publicRepositories');
+var publicRepository = new publicRepositoryModule.PublicRepository();
+
+var bcrypt = require('bcryptjs');
+var salt = bcrypt.genSaltSync(10); // salage
+
+
 /**********************************************************************************
  *            Middleware ➜ to use for all requests
  **********************************************************************************/
@@ -51,6 +58,56 @@ router.route('/private/:id')
     .delete(function (req, res) {
         console.log('delete method public');
         sql.del(res, 'public', req.params.id);
+    });
+
+router.route('/login/')
+    .post(function (req, res) {
+        publicRepository.findPublicByHash(req.body.hash, function (err, result) {
+
+            if (err) {
+                console.log(err);
+                res.status(404);
+                return;
+            }
+
+            res.status(200);
+            res.json({
+                status: constants.JSON_STATUS_SUCCESS,
+                title: '',
+                message: ''
+            });
+        });
+    });
+
+router.route('/register/')
+    .post(function (req, res) {
+        var prenom = req.body.prenom;
+        var nom = req.body.nom;
+        var hash = bcrypt.hashSync("conf"+nom+prenom+Date.now(), salt);
+        
+        publicRepository.addPublic(hash, nom, prenom, function (err, result) {
+
+            if (err) {
+                console.log(err);
+                res.status(404);
+                return;
+            }
+
+            var newUser = {
+                id: result.insertId,
+                prenom: prenom,
+                nom: nom,
+                hash: hash
+            };
+
+            res.status(201);
+            res.json({
+                status: constants.JSON_STATUS_SUCCESS,
+                title: '',
+                message: '',
+                user: newUser
+            });
+        });
     });
 
 module.exports = router;

@@ -2,7 +2,7 @@
     <div class="question-header">
       Question {{ question.id }} - Ecrit <span am-time-ago="question.created_at | amFromUnix"></span>
       <span ng-if="question.public_id">
-        par {{ question.public_id }}   
+        par {{ question.prenom }} {{ question.nom }}   
       </span>
     </div>
     <div class="question-content"> {{ question.content }}</div>
@@ -15,7 +15,7 @@
                 Aucun slide associé
             </span>
         </span>
-    	<span class="badge question-badge">{{ question.up_vote }}</span>
+        <i class="fa fa-star"></i><span class="badge question-badge">{{ question.up_vote }}</span>
         <br>
         <div class="btn-group pull-right">
             <i ng-show="maskQuestionToChairmanExist" ng-click="maskQuestionToChairman()" class="glyphicon glyphicon-trash pull-right question-icon gi-1-8"></i>

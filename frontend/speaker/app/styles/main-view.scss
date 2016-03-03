@@ -1,14 +1,21 @@
 @import "chartColor.scss";
 
+
+body {
+  overflow: hidden;
+}
+
+
 .top-panel {
   height: 20%;
 
   /* background-color: #dddddd; */
-  background-color: $green-light;
+  background-color: $green-darker;
 
   color: $gray-dark-text;
 
-  padding: 20px;
+  padding-right: 1%;
+  padding-left: 1%;
 }
 
 .mid-panel {
@@ -18,23 +25,25 @@
   border-top: 1px solid $gray-darker-border;
   border-bottom: 1px solid $gray-darker-border;
 
-  color: $gray-darker-text;
+  color: #222;
 
-  padding: 20px;
 }
-
+/*
 .bot-panel {
-  height: 0%;
+  height: 40%;
 
   background-color: #dddddd;
 
   padding: 20px;
 
 }
-
+*/
 
 .note-title {
-  font-size: 1.5em;
+  position: absolute;
+  top: 0;
+  left: 0;
+  font-size: 1.2em;
 }
 
 .note-text {
@@ -46,9 +55,39 @@
   padding-left: 20px;
 }
 .timer-text {
-  font-size: 2.0em;
+  font-size: 3.2em;
 }
 
+
+.endquestions-btn-row {
+  padding: 3%;
+}
+
+.endquestions-btn {
+  height: 100%;
+  width: 100%;
+  text-align: center;
+  vertical-align: middle;
+}
+.endquestions-btn .endquestions-btn-text {
+  font-size: 2em;
+  text-align: center;
+  display: inline-block;
+  margin: 0 -1000% 0 -1000%;
+  transform: rotate(270deg);
+}
+
+.question-title-panel {
+  height: 20%;
+  padding-top: 1%;
+  padding-right: 1%;
+  padding-left: 1%;
+}
+.question-content-panel {
+  height: 80%;
+  padding-right: 1%;
+  padding-left: 1%;
+}
 
 .question-title {
   font-size: 1.5em;
@@ -56,6 +95,8 @@
 
 .question-text {
   font-size: 2.5em;
+  white-space: normal;
+  display: inline-block;
 }
 
 .btns-question > .row {
@@ -71,7 +112,64 @@
   opacity: 0.5;
   vertical-align: middle;
   display: inline-block;
+  color: $gray-darker-text;
+  white-space: normal;
 }
+
+.end-questions-panel {
+  overflow-y: auto;
+}
+
+
+.end-question {
+  padding-left: 2%;
+  padding-right: 2%;
+}
+
+.end-question-container {
+  position: relative;
+
+/*   background-color: $gray-light; */
+  background-color: white;
+  border: 1px solid $gray-darker-border;
+  border-radius: 5px;
+  margin-top: 20px;
+  padding: 2%;
+
+  /* ombrage */
+  box-shadow:2px 2px 2px $gray-shadow;
+  -moz-box-shadow:2px 2px 2px $gray-shadow;
+  -webkit-box-shadow:2px 2px 2px $gray-shadow;
+
+  /* empêcher d'avoir un tres long mot */
+  overflow-wrap: break-word;
+  word-wrap: break-word;
+  -webkit-hyphens: auto;
+  -ms-hyphens: auto;
+  -moz-hyphens: auto;
+  hyphens: auto;
+}
+
+.end-question-title {
+  font-size: 1em;
+}
+
+.end-question-content {
+  font-size: 1.5em;
+  padding-right: 70px;
+}
+
+.end-question-btn {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  padding-right: 2%;
+  padding-bottom: 2%;
+}
+
+
+
+
 
 .div-to-align-middle {
   height: 100%;
@@ -86,6 +184,11 @@
   display: inline-block;
 }
 
+.no-wrap {
+  white-space: nowrap;
+}
+
+
 .questionNaveBar {
   position: absolute;
   bottom: 0;
@@ -93,115 +196,3 @@
   right: 0;
 }
 
-/*
-.top-panel {
-  padding: 0;
-  margin: 0;
-  width: 100%;
-  height: 15%;
-
-  background-color: #dddddd;
-
-  .note-assistant,
-  .timer {
-    height: 100%;
-    display: inline-block;
-    padding: 10px;
-  }
-
-  .note-assistant {
-
-  }
-
-  .timer {
-    
-  }
-
-}
-.mid-panel {
-  padding: 0;
-  margin: 0;
-  width: 100%;
-  height: 45%;
-
-  background-color: #eeeeee;
-  border-top: 1px solid #bbbbbb;
-  border-bottom: 1px solid #bbbbbb;
-  white-space: nowrap;
-
-  .question-container,
-  .question-buttons {
-    height: 100%;
-    display: inline-block;
-    white-space: normal;
-  }
-
-  .question-container {
-    width: 80%;
-
-    .question-title,
-    .question-content {
-      width: 100%;
-    }
-
-    .question-title {
-      height: 20%;
-      padding: 1%;
-      font-size: 16px;
-    }
-
-    .question-content {
-      height: 80%;
-      padding: 2%;
-      padding-top: 1%;
-      font-size: 24px;
-    }
-
-  }
-
-  .question-buttons {
-    width: 19%;
-
-    .btn-send,
-    .btn-cancel {
-      width: 98%;
-      height: 46%;
-      margin: 1%;
-      background-color: red;
-    }
-    .btn-send:hover,
-    .btn-cancel:hover {
-      background-color: silver;
-    }
-
-  }
-
-}
-
-.bot-panel {
-  padding: 0;
-  margin: 0;
-  width: 100%;
-  height: 40%;
-
-  background-color: #dddddd;
-
-  .sondage-title,
-  .sondage-content {
-    width: 100%;
-  }
-
-  .sondage-title {
-    padding: 15px;
-    height: 30%;
-    font-size: 16px;
-  }
-
-  .sondage-content {
-    padding: 25px;
-    height: 70%;
-    font-size: 24px;
-  }
-
-}
-*/

@@ -1,11 +1,18 @@
-# Ecran de conference interactif V1
+# Ecran de conference interactif
+
+### Membres
+
+* Guillaume Borg
+* Max Destors
+* Bezeid Moulaye-ely
+* Romain Palmero
 
 ## Features
 
 ### Chairman / Assistant
 * To receive question in real time.
 * To receive question where speaker as not respond in order to ordonnance them for the last session's question.
-* To Ordonnance questions by date or up vote.
+* To ordonnance questions by date or up vote.
 * To answer questions.
 * To mask useless questions.
 * To Merge questions.
@@ -94,10 +101,6 @@ Each frontend Application will be accessible at `http://localhost:900[0,1,2,3,4]
 Chairman : <br />
 login : chairman<br />
 password : azerty<br /><br />
-Moderator : <br />
-login : moderator<br />
-password : a<br />
-
 
 ## Unit test
 

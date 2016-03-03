@@ -250,7 +250,7 @@ module.exports = function (grunt) {
       },
       server: {
         options: {
-          sourcemap: false
+          sourcemap: true
         }
       }
     },
@@ -371,7 +371,7 @@ module.exports = function (grunt) {
     ngtemplates: {
       dist: {
         options: {
-          module: 'chairmanAppApp',
+          module: 'Public',
           htmlmin: '<%= htmlmin.dist.options %>',
           usemin: 'scripts/scripts.js'
         },

@@ -6,4 +6,32 @@
         - TODO s'authentifier a nouveau apres une deconnexion
         - TODO afficher les questions de l'utilisateur ainsi que celles validées par modérateur
         - TODO récupérer les réponses aux questions via socket   => responseFromChairman...
+
+
+        V1 :
+
+        Faire un QRCode
+        Grunt build sur chaque appli
+
+
+        V2 :
+
+        Public :
+           laisse blanc le vote si on a voté
+
+        Chairman :
+           Ctrl + F5 => pas toutes les questions
+           Merge
+           Delete status_code 10
+           Chairman entete
+           rediger question probleme
+
+        Screen Speaker
+           Btn fin de presentation tres laid !!!!
+           Fin de présentation
+           Screen bandeau avec #tag
+           gérer compte a rebourt
+
+        Virer les logs
+
 -->
